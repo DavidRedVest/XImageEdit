@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QImage>
 
+class IController;
+
 class XImage: public QWidget
 {
     Q_OBJECT
@@ -22,7 +24,7 @@ public slots:
     void Open();
 protected:
 
-
+    IController *c = 0;
 };
 
 #endif // XIMAGE_H

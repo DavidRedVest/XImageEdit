@@ -7,10 +7,15 @@
 #include "xeditview.h"
 #include "xmodel.h"
 
+#include "icontroller.h"
+#include "xcontrollerfactory.h"
+
 XModel m;
 
 XImage::XImage(QWidget *p):QWidget(p)
 {
+    c = IController::Create(new XControllerFactory());
+
     XEditView::getInstance().InitDevice(this);
     //视图观察模型
     m.Attach(&XEditView::getInstance());

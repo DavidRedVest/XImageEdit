@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-40e7046526ea2797b2ec.json",
+					"jsonFile" : "directory-.-Debug-a5bfb14f0e0bb909c953.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.16"
@@ -44,7 +44,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "MyImageEdit::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-MyImageEdit-Debug-5b3e60356852100f93c1.json",
+					"jsonFile" : "target-MyImageEdit-Debug-ee67b440c991885ce04b.json",
 					"name" : "MyImageEdit",
 					"projectIndex" : 0
 				},

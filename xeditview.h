@@ -4,7 +4,7 @@
 #include <QImage>
 #include <vector>
 
-#include "iobserver.h"
+#include "iview.h"
 
 using namespace  std;
 
@@ -12,7 +12,8 @@ class QWidget;
 
 
 
-class XEditView :public IObserver
+//class XEditView :public IObserver
+class XEditView :public IView
 {
 public:
     static XEditView &getInstance()

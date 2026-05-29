@@ -1123,10 +1123,16 @@ MyImageEdit_autogen/timestamp: \
 	/Users/liszt/home/qt_workspace/MyImageEdit/build/Qt_6_8_3_for_macOS-Debug/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake \
 	/Users/liszt/home/qt_workspace/MyImageEdit/build/Qt_6_8_3_for_macOS-Debug/CMakeFiles/3.30.5/CMakeSystem.cmake \
 	/Users/liszt/home/qt_workspace/MyImageEdit/build/Qt_6_8_3_for_macOS-Debug/MyImageEdit_autogen/moc_predefs.h \
+	/Users/liszt/home/qt_workspace/MyImageEdit/icontroller.cpp \
+	/Users/liszt/home/qt_workspace/MyImageEdit/icontroller.h \
+	/Users/liszt/home/qt_workspace/MyImageEdit/icontrollerfactory.h \
 	/Users/liszt/home/qt_workspace/MyImageEdit/iobserver.h \
+	/Users/liszt/home/qt_workspace/MyImageEdit/iview.h \
 	/Users/liszt/home/qt_workspace/MyImageEdit/main.cpp \
 	/Users/liszt/home/qt_workspace/MyImageEdit/myimageedit.cpp \
 	/Users/liszt/home/qt_workspace/MyImageEdit/myimageedit.h \
+	/Users/liszt/home/qt_workspace/MyImageEdit/xcontrollerfactory.cpp \
+	/Users/liszt/home/qt_workspace/MyImageEdit/xcontrollerfactory.h \
 	/Users/liszt/home/qt_workspace/MyImageEdit/xeditview.cpp \
 	/Users/liszt/home/qt_workspace/MyImageEdit/xeditview.h \
 	/Users/liszt/home/qt_workspace/MyImageEdit/ximage.cpp \

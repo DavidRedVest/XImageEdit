@@ -32,6 +32,11 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         xsubject.h xsubject.cpp
         iobserver.h
         xmodel.h xmodel.cpp
+        icontroller.h icontroller.cpp
+        icontrollerfactory.h
+        iview.h
+        xcontrollerfactory.h xcontrollerfactory.cpp
+
 
 
     )

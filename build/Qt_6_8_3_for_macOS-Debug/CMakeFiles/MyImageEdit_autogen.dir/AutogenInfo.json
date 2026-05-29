@@ -351,15 +351,39 @@
 	"HEADERS" : 
 	[
 		[
+			"/Users/liszt/home/qt_workspace/MyImageEdit/icontroller.h",
+			"MU",
+			"EWIEGA46WW/moc_icontroller.cpp",
+			null
+		],
+		[
+			"/Users/liszt/home/qt_workspace/MyImageEdit/icontrollerfactory.h",
+			"MU",
+			"EWIEGA46WW/moc_icontrollerfactory.cpp",
+			null
+		],
+		[
 			"/Users/liszt/home/qt_workspace/MyImageEdit/iobserver.h",
 			"MU",
 			"EWIEGA46WW/moc_iobserver.cpp",
 			null
 		],
 		[
+			"/Users/liszt/home/qt_workspace/MyImageEdit/iview.h",
+			"MU",
+			"EWIEGA46WW/moc_iview.cpp",
+			null
+		],
+		[
 			"/Users/liszt/home/qt_workspace/MyImageEdit/myimageedit.h",
 			"MU",
 			"EWIEGA46WW/moc_myimageedit.cpp",
+			null
+		],
+		[
+			"/Users/liszt/home/qt_workspace/MyImageEdit/xcontrollerfactory.h",
+			"MU",
+			"EWIEGA46WW/moc_xcontrollerfactory.cpp",
 			null
 		],
 		[
@@ -446,9 +470,19 @@
 	"SETTINGS_FILE" : "/Users/liszt/home/qt_workspace/MyImageEdit/build/Qt_6_8_3_for_macOS-Debug/CMakeFiles/MyImageEdit_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
+		[
+			"/Users/liszt/home/qt_workspace/MyImageEdit/icontroller.cpp",
+			"MU",
+			null
+		],
 		[ "/Users/liszt/home/qt_workspace/MyImageEdit/main.cpp", "MU", null ],
 		[
 			"/Users/liszt/home/qt_workspace/MyImageEdit/myimageedit.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/liszt/home/qt_workspace/MyImageEdit/xcontrollerfactory.cpp",
 			"MU",
 			null
 		],

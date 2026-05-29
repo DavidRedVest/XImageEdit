@@ -4,7 +4,7 @@
 #include <QPainter>
 
 #include <QMouseEvent>
-#include "xeditview.h"
+//#include "xeditview.h"
 #include "xmodel.h"
 
 #include "icontroller.h"
@@ -15,10 +15,11 @@ XModel m;
 XImage::XImage(QWidget *p):QWidget(p)
 {
     c = IController::Create(new XControllerFactory());
+    c->Init(this);
 
-    XEditView::getInstance().InitDevice(this);
+    //XEditView::getInstance().InitDevice(this);
     //视图观察模型
-    m.Attach(&XEditView::getInstance());
+    //m.Attach(&XEditView::getInstance());
 }
 
 
@@ -39,7 +40,8 @@ void XImage::Open()
     }
     //加载图片
     //if(!src.load(filename)) {
-    if(!XEditView::getInstance().InitBack(filename.toLocal8Bit())) {
+    //if(!XEditView::getInstance().InitBack(filename.toLocal8Bit())) {
+    if(!c->InitBack(filename.toLocal8Bit())) {
         qDebug()<<"src.load image failed!";
         return;
     }
@@ -68,7 +70,8 @@ void XImage::mouseMoveEvent(QMouseEvent *e)
 
 void XImage::paintEvent(QPaintEvent *e)
 {
-    XEditView::getInstance().Paint();
+    c->Paint();
+    //XEditView::getInstance().Paint();
 
 #if 0
     //绘制图片

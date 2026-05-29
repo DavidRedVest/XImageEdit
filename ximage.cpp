@@ -10,7 +10,7 @@
 #include "icontroller.h"
 #include "xcontrollerfactory.h"
 
-XModel m;
+//XModel m;
 
 XImage::XImage(QWidget *p):QWidget(p)
 {
@@ -57,14 +57,19 @@ void XImage::Open()
 void XImage::mousePressEvent(QMouseEvent *e)
 {
     //XEditView::getInstance().poss.push_back(XPos(e->x(), e->y()));
-    m.Add( XPos(e->x(), e->y()) );
+    //m.Add( XPos(e->x(), e->y()) );
 
+    c->AddModel();
+    c->Add(e->x(), e->y());
 }
 //默认鼠标移动事件，按下才触发
 void XImage::mouseMoveEvent(QMouseEvent *e)
 {
     //XEditView::getInstance().poss.push_back(XPos(e->x(), e->y()));
-    m.Add(XPos(e->x(), e->y()));
+    //m.Add(XPos(e->x(), e->y()));
+
+    //c->AddModel();
+    c->Add(e->x(), e->y());
     update();
 }
 

@@ -1,0 +1,2 @@
+set(__QT_DEPLOY_TARGET_MyImageEdit_FILE /Users/liszt/home/qt_workspace/MyImageEdit/build/Qt_6_8_3_for_macOS-Debug/MyImageEdit.app/Contents/MacOS/MyImageEdit)
+set(__QT_DEPLOY_TARGET_MyImageEdit_TYPE EXECUTABLE)

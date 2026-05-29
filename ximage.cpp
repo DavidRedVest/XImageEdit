@@ -29,7 +29,7 @@ XImage::~XImage()
 
 void XImage::Open()
 {
-    qDebug() << "XImage::Open()" ;
+   // qDebug() << "XImage::Open()" ;
 
     //打开图片
     QString filename = QFileDialog::getOpenFileName(this, QStringLiteral("打开图片"), "",
@@ -45,7 +45,7 @@ void XImage::Open()
         qDebug()<<"src.load image failed!";
         return;
     }
-    qDebug()<<"src.load image successful!";
+    //qDebug()<<"src.load image successful!";
 
 
     //刷新显示

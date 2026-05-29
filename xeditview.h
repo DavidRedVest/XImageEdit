@@ -45,6 +45,9 @@ protected:
     QImage src;
     //输出图
     QImage out;
+
+    //绘制到out
+    QPainter *op = 0;
 };
 
 #endif // XEDITVIEW_H

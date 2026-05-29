@@ -23,7 +23,7 @@ public:
     {
         if (MyImageEdit->objectName().isEmpty())
             MyImageEdit->setObjectName("MyImageEdit");
-        MyImageEdit->resize(800, 600);
+        MyImageEdit->resize(922, 600);
 
         retranslateUi(MyImageEdit);
 

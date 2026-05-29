@@ -363,6 +363,12 @@
 			null
 		],
 		[
+			"/Users/liszt/home/qt_workspace/MyImageEdit/igraph.h",
+			"MU",
+			"EWIEGA46WW/moc_igraph.cpp",
+			null
+		],
+		[
 			"/Users/liszt/home/qt_workspace/MyImageEdit/iobserver.h",
 			"MU",
 			"EWIEGA46WW/moc_iobserver.cpp",
@@ -402,6 +408,12 @@
 			"/Users/liszt/home/qt_workspace/MyImageEdit/xmodel.h",
 			"MU",
 			"EWIEGA46WW/moc_xmodel.cpp",
+			null
+		],
+		[
+			"/Users/liszt/home/qt_workspace/MyImageEdit/xpengraph.h",
+			"MU",
+			"EWIEGA46WW/moc_xpengraph.cpp",
 			null
 		],
 		[
@@ -493,6 +505,11 @@
 		],
 		[ "/Users/liszt/home/qt_workspace/MyImageEdit/ximage.cpp", "MU", null ],
 		[ "/Users/liszt/home/qt_workspace/MyImageEdit/xmodel.cpp", "MU", null ],
+		[
+			"/Users/liszt/home/qt_workspace/MyImageEdit/xpengraph.cpp",
+			"MU",
+			null
+		],
 		[ "/Users/liszt/home/qt_workspace/MyImageEdit/xsubject.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],

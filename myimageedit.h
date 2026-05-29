@@ -33,6 +33,9 @@ public:
     QScrollArea *scrollArea;
     QWidget *myImage;
 
+    QPushButton *LineButton;
+    QPushButton *EraseButton;
+
 protected:
 
 

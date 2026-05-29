@@ -36,6 +36,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         icontrollerfactory.h
         iview.h
         xcontrollerfactory.h xcontrollerfactory.cpp
+        igraph.h
+        xpengraph.h xpengraph.cpp
 
 
 

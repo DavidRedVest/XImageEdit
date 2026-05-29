@@ -1126,6 +1126,7 @@ MyImageEdit_autogen/timestamp: \
 	/Users/liszt/home/qt_workspace/MyImageEdit/icontroller.cpp \
 	/Users/liszt/home/qt_workspace/MyImageEdit/icontroller.h \
 	/Users/liszt/home/qt_workspace/MyImageEdit/icontrollerfactory.h \
+	/Users/liszt/home/qt_workspace/MyImageEdit/igraph.h \
 	/Users/liszt/home/qt_workspace/MyImageEdit/iobserver.h \
 	/Users/liszt/home/qt_workspace/MyImageEdit/iview.h \
 	/Users/liszt/home/qt_workspace/MyImageEdit/main.cpp \
@@ -1139,6 +1140,8 @@ MyImageEdit_autogen/timestamp: \
 	/Users/liszt/home/qt_workspace/MyImageEdit/ximage.h \
 	/Users/liszt/home/qt_workspace/MyImageEdit/xmodel.cpp \
 	/Users/liszt/home/qt_workspace/MyImageEdit/xmodel.h \
+	/Users/liszt/home/qt_workspace/MyImageEdit/xpengraph.cpp \
+	/Users/liszt/home/qt_workspace/MyImageEdit/xpengraph.h \
 	/Users/liszt/home/qt_workspace/MyImageEdit/xsubject.cpp \
 	/Users/liszt/home/qt_workspace/MyImageEdit/xsubject.h \
 	/Users/liszt/home/qt_workspace/MyImageEdit/myimageedit.ui \

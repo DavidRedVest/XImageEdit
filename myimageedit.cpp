@@ -24,7 +24,20 @@ void MyImageEdit::initDate(void)
 }
 void MyImageEdit::initUI(void)
 {
-    qDebug()<<"initUI test";
+    LineButton = new QPushButton(this);
+    LineButton->setObjectName("LineButton");
+    LineButton->setGeometry(QRect(50, 110, 71, 51));
+    LineButton->setText("画笔");
+    LineButton->setCheckable(true);
+    LineButton->setAutoExclusive(true);
+    EraseButton = new QPushButton(this);
+    EraseButton->setObjectName("EraseButton");
+    EraseButton->setGeometry(QRect(50, 160, 71, 51));
+    EraseButton->setText("橡皮擦");
+    EraseButton->setCheckable(true);
+    EraseButton->setAutoExclusive(true);
+
+   // qDebug()<<"initUI test";
     openB = new QPushButton(this);
     openB->setObjectName("openB");
     openB->setGeometry(QRect(60, 70, 51, 41));

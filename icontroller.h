@@ -4,6 +4,12 @@
 #include "icontrollerfactory.h"
 #include <vector>
 
+enum XSTATUS
+{
+    XPEN,
+    XERASER
+};
+
 class IController
 {
 public:

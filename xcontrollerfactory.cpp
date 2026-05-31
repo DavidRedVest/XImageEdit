@@ -2,7 +2,7 @@
 #include "xmodel.h"
 #include "icontroller.h"
 #include "xeditview.h"
-
+#include "xpengraph.h"
 
 XControllerFactory::XControllerFactory()
 {
@@ -15,6 +15,7 @@ XModel* XControllerFactory::CreateM()
 }
 IView* XControllerFactory::CreateV()
 {
+    XEditView::getInstance().RegView<XPenGraph>(XPEN);
     return &(XEditView::getInstance());
 }
 IController* XControllerFactory::CreateC()

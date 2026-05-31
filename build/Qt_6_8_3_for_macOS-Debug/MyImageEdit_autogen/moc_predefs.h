@@ -464,7 +464,7 @@ clang++: warning: argument unused during compilation: '-c' [-Wunused-command-lin
 #define __UINT_LEAST8_MAX__ 255
 #define __UINT_LEAST8_TYPE__ unsigned char
 #define __USER_LABEL_PREFIX__ _
-#define __VERSION__ "Apple LLVM 21.0.0 (clang-2100.0.123.102)"
+#define __VERSION__ "Apple LLVM 21.0.0 (clang-2100.1.1.101)"
 #define __WCHAR_MAX__ 2147483647
 #define __WCHAR_TYPE__ int
 #define __WCHAR_WIDTH__ 32
@@ -472,7 +472,7 @@ clang++: warning: argument unused during compilation: '-c' [-Wunused-command-lin
 #define __WINT_TYPE__ int
 #define __WINT_WIDTH__ 32
 #define __aarch64__ 1
-#define __apple_build_version__ 21000099
+#define __apple_build_version__ 21000101
 #define __arm64 1
 #define __arm64__ 1
 #define __block __attribute__((__blocks__(byref)))
@@ -481,7 +481,7 @@ clang++: warning: argument unused during compilation: '-c' [-Wunused-command-lin
 #define __clang_major__ 21
 #define __clang_minor__ 0
 #define __clang_patchlevel__ 0
-#define __clang_version__ "21.0.0 (clang-2100.0.123.102)"
+#define __clang_version__ "21.0.0 (clang-2100.1.1.101)"
 #define __clang_wide_literal_encoding__ "UTF-32"
 #define __cplusplus 201703L
 #define __cpp_aggregate_bases 201603L

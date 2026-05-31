@@ -1,5 +1,6 @@
 #ifndef XSUBJECT_H
 #define XSUBJECT_H
+
 #include <vector>
 
 class IObserver;

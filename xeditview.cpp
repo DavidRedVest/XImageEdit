@@ -25,7 +25,13 @@ void XEditView::Update(XSubject *data)
     }
 
     XModel *m = static_cast<XModel *>(data);
-    xpen.Draw(m);
+    //使用容器初始化
+    std::map<int, IGraph*>::iterator itr = views.begin();
+    for(; itr != views.end(); itr++)
+    {
+        itr->second->Draw(m);
+    }
+    //xpen.Draw(m);
 
 #if 0
     int size = m->poss.size();
@@ -48,7 +54,13 @@ void XEditView::InitDevice(void *d)
     op->end();
     op->begin(&out);
 
-    xpen.Init(op, &src);
+    //使用容器初始化
+    std::map<int, IGraph*>::iterator itr = views.begin();
+    for(; itr != views.end(); itr++)
+    {
+        itr->second->Init(op,&src);
+    }
+    //xpen.Init(op, &src);
 }
 
 //载入背景图

@@ -47,3 +47,10 @@
 38	595	1780222175991305946	CMakeFiles/MyImageEdit.dir/myimageedit.cpp.o	5abfad53437fff1e
 38	599	1780222175991456612	CMakeFiles/MyImageEdit.dir/xeditview.cpp.o	e4a3c58ce3eab977
 599	670	1780222176552169480	MyImageEdit.app/Contents/MacOS/MyImageEdit	9260b54018018654
+7	38	1780222571536877242	MyImageEdit_autogen/timestamp	d58fccf39b1c7493
+7	38	1780222571536877242	MyImageEdit_autogen/mocs_compilation.cpp	d58fccf39b1c7493
+7	38	1780222571536877242	/Users/liszt/home/qt_workspace/MyImageEdit/build/Qt_6_8_3_for_macOS-Debug/MyImageEdit_autogen/timestamp	d58fccf39b1c7493
+7	38	1780222571536877242	/Users/liszt/home/qt_workspace/MyImageEdit/build/Qt_6_8_3_for_macOS-Debug/MyImageEdit_autogen/mocs_compilation.cpp	d58fccf39b1c7493
+38	580	1780222571567944372	CMakeFiles/MyImageEdit.dir/myimageedit.cpp.o	5abfad53437fff1e
+38	582	1780222571568101497	CMakeFiles/MyImageEdit.dir/xeditview.cpp.o	e4a3c58ce3eab977
+582	655	1780222572111833142	MyImageEdit.app/Contents/MacOS/MyImageEdit	9260b54018018654

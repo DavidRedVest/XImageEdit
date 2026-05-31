@@ -5,7 +5,7 @@
 #include "xmodel.h"
 
 #include "xpengraph.h"
-XPenGraph xpen;
+//XPenGraph xpen;
 
 XEditView::XEditView()
 {

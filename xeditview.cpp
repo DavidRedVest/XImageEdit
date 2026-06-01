@@ -11,7 +11,9 @@ XEditView::XEditView()
 {
     //初始化图像，未打开图像，直接画像
     out = QImage(1280, 720, QImage::Format_RGB888);
+    out.fill(Qt::white);    //初始化为白色背景，默认是黑色
     src = QImage(1280, 720, QImage::Format_RGB888);
+    //src.fill(Qt::white);
 }
 XEditView::~XEditView()
 {

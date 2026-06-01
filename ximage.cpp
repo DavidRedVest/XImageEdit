@@ -69,7 +69,8 @@ void XImage::mousePressEvent(QMouseEvent *e)
     //m.Add( XPos(e->x(), e->y()) );
 
     c->AddModel();
-    c->Add(e->x(), e->y());
+    //c->Add(e->x(), e->y());
+    c->Add(e->position().x(), e->position().y());
 }
 //默认鼠标移动事件，按下才触发
 void XImage::mouseMoveEvent(QMouseEvent *e)
@@ -78,7 +79,8 @@ void XImage::mouseMoveEvent(QMouseEvent *e)
     //m.Add(XPos(e->x(), e->y()));
 
     //c->AddModel();
-    c->Add(e->x(), e->y());
+    //c->Add(e->x(), e->y());
+    c->Add(e->position().x(), e->position().y());
     update();
 }
 

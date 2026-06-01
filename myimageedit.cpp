@@ -29,14 +29,20 @@ void MyImageEdit::initUI(void)
     penButton->setGeometry(QRect(50, 110, 71, 51));
     penButton->setText("画笔");
     penButton->setCheckable(true);
-    penButton->setAutoExclusive(true);  //开启互斥
+    //penButton->setAutoExclusive(true);  //开启互斥,可以用QButtonGroup替代
     eraseButton = new QPushButton(this);
     eraseButton->setObjectName("EraseButton");
     eraseButton->setGeometry(QRect(50, 160, 71, 51));
     eraseButton->setText("橡皮擦");
     eraseButton->setCheckable(true);
-    eraseButton->setAutoExclusive(true);    //开启互斥
+    //eraseButton->setAutoExclusive(true);    //开启互斥，可以用QButtonGroup替代
 
+    //创建一个按钮组来管理它们
+    toolGroup = new QButtonGroup(this);
+    toolGroup->setExclusive(true);  //设置互斥（默认就是ture)
+    //把按钮加进组里，并顺遍给它们分配一个ID（方便后续判断选择哪个）
+    toolGroup->addButton(penButton, 0);
+    toolGroup->addButton(eraseButton, 1);
     //默认选中画笔
     penButton->setChecked(true);
 
@@ -58,6 +64,14 @@ void MyImageEdit::initUI(void)
     myImage->setObjectName("myImage");
     myImage->setGeometry(QRect(0, 0, 679, 619));
     scrollArea->setWidget(myImage);
+    //设置背景颜色
+    //myImage->setStyleSheet("background-color: white;");
+#if 0
+    myImage->setAutoFillBackground(true); // 必须开启这一句，允许自动填充背景
+    QPalette pal = myImage->palette();
+    pal.setColor(QPalette::Window, Qt::white); // 设置窗口背景色为白色
+    myImage->setPalette(pal);
+#endif
 
 }
 void MyImageEdit::initConnect(void)

@@ -5,6 +5,7 @@
 
 #include <QPushButton>
 #include <QScrollArea>
+#include <QButtonGroup>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -35,6 +36,7 @@ public:
 
     QPushButton *penButton;
     QPushButton *eraseButton;
+    QButtonGroup *toolGroup;
 
 protected:
 

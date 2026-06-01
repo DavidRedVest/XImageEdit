@@ -23,6 +23,7 @@ public:
     //给当前模型添加数据
     virtual void Add(int x, int y);
     virtual void Paint();
+    virtual void SetStatus(XSTATUS s) {status = s;}
 
     IController();
 protected:
@@ -31,6 +32,8 @@ protected:
     IControllerFactory *f = 0;
     //命令队列
     std::vector<XModel*> tasks;
+
+    XSTATUS status = XPEN;
 };
 
 #endif // ICONTROLLER_H

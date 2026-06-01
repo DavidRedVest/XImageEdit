@@ -53,6 +53,15 @@ void XImage::Open()
 
 }
 
+void XImage::SetPen()
+{
+    c->SetStatus(XPEN);
+}
+void XImage::SetErase()
+{
+    c->SetStatus(XERASER);
+}
+
 //鼠标重载函数
 void XImage::mousePressEvent(QMouseEvent *e)
 {

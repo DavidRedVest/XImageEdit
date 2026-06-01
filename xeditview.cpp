@@ -25,12 +25,19 @@ void XEditView::Update(XSubject *data)
     }
 
     XModel *m = static_cast<XModel *>(data);
+    //通过类型判断
+    views[m->type]->Draw(m);
+
+
+#if 0
     //使用容器初始化
     std::map<int, IGraph*>::iterator itr = views.begin();
+
     for(; itr != views.end(); itr++)
     {
         itr->second->Draw(m);
     }
+#endif
     //xpen.Draw(m);
 
 #if 0

@@ -8,6 +8,7 @@ class IObserver;
 class XSubject
 {
 public:
+    int type = 0;
     //通知观察者
     virtual void Notify();
 

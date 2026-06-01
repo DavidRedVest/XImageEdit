@@ -24,18 +24,21 @@ void MyImageEdit::initDate(void)
 }
 void MyImageEdit::initUI(void)
 {
-    LineButton = new QPushButton(this);
-    LineButton->setObjectName("LineButton");
-    LineButton->setGeometry(QRect(50, 110, 71, 51));
-    LineButton->setText("画笔");
-    LineButton->setCheckable(true);
-    LineButton->setAutoExclusive(true);
-    EraseButton = new QPushButton(this);
-    EraseButton->setObjectName("EraseButton");
-    EraseButton->setGeometry(QRect(50, 160, 71, 51));
-    EraseButton->setText("橡皮擦");
-    EraseButton->setCheckable(true);
-    EraseButton->setAutoExclusive(true);
+    penButton = new QPushButton(this);
+    penButton->setObjectName("LineButton");
+    penButton->setGeometry(QRect(50, 110, 71, 51));
+    penButton->setText("画笔");
+    penButton->setCheckable(true);
+    penButton->setAutoExclusive(true);  //开启互斥
+    eraseButton = new QPushButton(this);
+    eraseButton->setObjectName("EraseButton");
+    eraseButton->setGeometry(QRect(50, 160, 71, 51));
+    eraseButton->setText("橡皮擦");
+    eraseButton->setCheckable(true);
+    eraseButton->setAutoExclusive(true);    //开启互斥
+
+    //默认选中画笔
+    penButton->setChecked(true);
 
    // qDebug()<<"initUI test";
     openB = new QPushButton(this);
@@ -60,6 +63,7 @@ void MyImageEdit::initUI(void)
 void MyImageEdit::initConnect(void)
 {
     connect(openB,SIGNAL(clicked()), myImage, SLOT(Open()));
-
+    connect(penButton,SIGNAL(clicked()), myImage, SLOT(SetPen()));
+    connect(eraseButton,SIGNAL(clicked()), myImage, SLOT(SetErase()));
 }
 

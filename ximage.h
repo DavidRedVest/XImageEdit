@@ -22,6 +22,8 @@ public:
     void mouseMoveEvent(QMouseEvent *e);
 public slots:
     void Open();
+    void SetPen();
+    void SetErase();
 protected:
 
     IController *c = 0;

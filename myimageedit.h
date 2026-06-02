@@ -38,6 +38,8 @@ public:
     QPushButton *eraseButton;
     QButtonGroup *toolGroup;
     QPushButton *rectButton;
+    QPushButton *undoButton;
+    QPushButton *redoButton;
 
 protected:
 

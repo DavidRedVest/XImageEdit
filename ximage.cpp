@@ -65,6 +65,22 @@ void XImage::SetRect()
 {
     c->SetStatus(XRECT);
 }
+
+void XImage::Undo()
+{
+    c->Undo();
+    //刷新显示
+    update();
+
+}
+void XImage::Redo()
+{
+    c->Redo();
+    //刷新显示
+    update();
+
+}
+
 //鼠标重载函数
 void XImage::mousePressEvent(QMouseEvent *e)
 {

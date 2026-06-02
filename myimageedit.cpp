@@ -41,6 +41,16 @@ void MyImageEdit::initUI(void)
     rectButton->setGeometry(QRect(50, 210, 71, 51));
     rectButton->setText("矩形");
     rectButton->setCheckable(true);
+    undoButton = new QPushButton(this);
+    undoButton->setObjectName("undoButton");
+    undoButton->setGeometry(QRect(50, 260, 71, 51));
+    undoButton->setText("撤销");
+    undoButton->setCheckable(true);
+    redoButton = new QPushButton(this);
+    redoButton->setObjectName("rectButton");
+    redoButton->setGeometry(QRect(50, 310, 71, 51));
+    redoButton->setText("重做");
+    redoButton->setCheckable(true);
 
     //创建一个按钮组来管理它们
     toolGroup = new QButtonGroup(this);
@@ -49,7 +59,7 @@ void MyImageEdit::initUI(void)
     toolGroup->addButton(penButton, 0);
     toolGroup->addButton(eraseButton, 1);
     toolGroup->addButton(rectButton, 2);
-    //默认选中画笔
+     //默认选中画笔
     penButton->setChecked(true);
 
    // qDebug()<<"initUI test";
@@ -86,5 +96,7 @@ void MyImageEdit::initConnect(void)
     connect(penButton,SIGNAL(clicked()), myImage, SLOT(SetPen()));
     connect(eraseButton,SIGNAL(clicked()), myImage, SLOT(SetErase()));
     connect(rectButton,SIGNAL(clicked()), myImage, SLOT(SetRect()));
+    connect(undoButton,SIGNAL(clicked()), myImage, SLOT(Undo()));
+    connect(redoButton,SIGNAL(clicked()), myImage, SLOT(Redo()));
 }
 

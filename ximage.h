@@ -25,6 +25,8 @@ public slots:
     void SetPen();
     void SetErase();
     void SetRect();
+    void Undo();
+    void Redo();
 protected:
 
     IController *c = 0;

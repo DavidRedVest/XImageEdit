@@ -65,3 +65,26 @@ void IController::NotfyAll()
         tasks[i]->Notify();
     }
 }
+//撤消
+void IController::Undo()
+{
+    int last = tasks.size() - 1;    //下表从0开始
+    if(last < 2) {
+        return;
+    }
+    retasks.push_back(tasks[last]);;
+    tasks.pop_back();
+    NotfyAll();
+}
+//恢复
+void IController::Redo()
+{
+    if(retasks.empty()) {
+        return;
+    }
+    int rlast = retasks.size() - 1;
+    tasks.push_back(retasks[rlast]);
+    retasks.pop_back();
+    NotfyAll();
+}
+

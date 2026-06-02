@@ -39,6 +39,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         igraph.h
         xpengraph.h xpengraph.cpp
         xerasegraph.h xerasegraph.cpp
+        xrectgraph.h xrectgraph.cpp
+        ximagegraph.h ximagegraph.cpp
 
 
 

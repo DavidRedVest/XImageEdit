@@ -61,7 +61,10 @@ void XImage::SetErase()
 {
     c->SetStatus(XERASER);
 }
-
+void XImage::SetRect()
+{
+    c->SetStatus(XRECT);
+}
 //鼠标重载函数
 void XImage::mousePressEvent(QMouseEvent *e)
 {

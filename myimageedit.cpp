@@ -36,6 +36,11 @@ void MyImageEdit::initUI(void)
     eraseButton->setText("橡皮擦");
     eraseButton->setCheckable(true);
     //eraseButton->setAutoExclusive(true);    //开启互斥，可以用QButtonGroup替代
+    rectButton = new QPushButton(this);
+    rectButton->setObjectName("rectButton");
+    rectButton->setGeometry(QRect(50, 210, 71, 51));
+    rectButton->setText("矩形");
+    rectButton->setCheckable(true);
 
     //创建一个按钮组来管理它们
     toolGroup = new QButtonGroup(this);
@@ -43,6 +48,7 @@ void MyImageEdit::initUI(void)
     //把按钮加进组里，并顺遍给它们分配一个ID（方便后续判断选择哪个）
     toolGroup->addButton(penButton, 0);
     toolGroup->addButton(eraseButton, 1);
+    toolGroup->addButton(rectButton, 2);
     //默认选中画笔
     penButton->setChecked(true);
 
@@ -79,5 +85,6 @@ void MyImageEdit::initConnect(void)
     connect(openB,SIGNAL(clicked()), myImage, SLOT(Open()));
     connect(penButton,SIGNAL(clicked()), myImage, SLOT(SetPen()));
     connect(eraseButton,SIGNAL(clicked()), myImage, SLOT(SetErase()));
+    connect(rectButton,SIGNAL(clicked()), myImage, SLOT(SetRect()));
 }
 

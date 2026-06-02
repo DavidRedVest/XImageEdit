@@ -37,6 +37,7 @@ public:
     QPushButton *penButton;
     QPushButton *eraseButton;
     QButtonGroup *toolGroup;
+    QPushButton *rectButton;
 
 protected:
 

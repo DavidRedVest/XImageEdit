@@ -29,6 +29,7 @@ public:
     virtual void NotfyAll();
     virtual void Undo();
     virtual void Redo();
+    virtual void SetPara(std::string key, int val);
 
     IController();
 protected:

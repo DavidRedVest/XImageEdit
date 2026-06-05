@@ -3,7 +3,7 @@
 
 #include "xsubject.h"
 #include <vector>
-
+#include <map>
 struct XPos
 {
     XPos(int x, int y)
@@ -23,8 +23,14 @@ public:
 
     void Add(XPos pos);
 
+    void SetPara(std::string key, int val);
+    int GetPara(std::string key);
+
     XModel();
     ~XModel();
+
+private:
+    std::map<std::string, int> paras;
 };
 
 #endif // XMODEL_H

@@ -9,8 +9,9 @@ void XPenGraph::Draw(XModel *m)
         return;
     }
     QPen pen;   //画笔
-    pen.setWidth(5);    //设置画笔线条宽度
-    pen.setColor(QColor(200, 0, 0));
+    pen.setWidth(m->GetPara("size"));    //设置画笔线条宽度
+    //pen.setColor(QColor(200, 0, 0));
+    pen.setColor(QColor(m->GetPara("r"), m->GetPara("g"), m->GetPara("b"), m->GetPara("a")));
     //设置连接处
     pen.setCapStyle(Qt::RoundCap);  //顶部样式
     pen.setJoinStyle(Qt::RoundJoin);    //连接处样式

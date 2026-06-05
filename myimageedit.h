@@ -6,6 +6,10 @@
 #include <QPushButton>
 #include <QScrollArea>
 #include <QButtonGroup>
+#include <QSlider>
+
+//  添加前向声明
+class XImage;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -32,7 +36,8 @@ public:
 
     QPushButton *openB;
     QScrollArea *scrollArea;
-    QWidget *myImage;
+ //   QWidget *myImage;
+    XImage *myImage;
 
     QPushButton *penButton;
     QPushButton *eraseButton;
@@ -40,9 +45,11 @@ public:
     QPushButton *rectButton;
     QPushButton *undoButton;
     QPushButton *redoButton;
+    QSlider *penSizeSlider;
+    QPushButton *colorButton;
 
-protected:
-
+public slots:
+    void SetColor();
 
 };
 #endif // MYIMAGEEDIT_H

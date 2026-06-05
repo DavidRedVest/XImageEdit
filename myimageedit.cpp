@@ -2,6 +2,7 @@
 #include "./ui_myimageedit.h"
 
 #include "ximage.h"
+#include <QColorDialog>
 
 MyImageEdit::MyImageEdit(QWidget *parent)
     : QWidget(parent)
@@ -25,7 +26,9 @@ void MyImageEdit::initDate(void)
 void MyImageEdit::initUI(void)
 {
     penButton = new QPushButton(this);
-    penButton->setObjectName("LineButton");
+    if(penButton->objectName().isEmpty()) {
+        penButton->setObjectName("LineButton");
+    }
     penButton->setGeometry(QRect(50, 110, 71, 51));
     penButton->setText("画笔");
     penButton->setCheckable(true);
@@ -43,14 +46,29 @@ void MyImageEdit::initUI(void)
     rectButton->setCheckable(true);
     undoButton = new QPushButton(this);
     undoButton->setObjectName("undoButton");
-    undoButton->setGeometry(QRect(50, 260, 71, 51));
+    undoButton->setGeometry(QRect(20, 260, 50, 40));
     undoButton->setText("撤销");
     undoButton->setCheckable(true);
     redoButton = new QPushButton(this);
     redoButton->setObjectName("rectButton");
-    redoButton->setGeometry(QRect(50, 310, 71, 51));
+    redoButton->setGeometry(QRect(80, 260, 50, 40));
     redoButton->setText("重做");
     redoButton->setCheckable(true);
+    penSizeSlider = new QSlider(this);
+    if(penSizeSlider->objectName().isEmpty()) {
+        penSizeSlider->setObjectName("penSizeSlider");
+    }
+    penSizeSlider->setGeometry(QRect(10, 310, 100, 30));
+    penSizeSlider->setOrientation(Qt::Orientation::Horizontal);
+    //设置区间值
+    penSizeSlider->setMinimum(5);
+    penSizeSlider->setMaximum(50);
+    penSizeSlider->setValue(5); //设置初始值
+    colorButton = new QPushButton(this);
+    colorButton->setObjectName("colorButton");
+    colorButton->setGeometry(QRect(50, 360, 50, 40));
+    colorButton->setText("颜色");
+
 
     //创建一个按钮组来管理它们
     toolGroup = new QButtonGroup(this);
@@ -98,5 +116,19 @@ void MyImageEdit::initConnect(void)
     connect(rectButton,SIGNAL(clicked()), myImage, SLOT(SetRect()));
     connect(undoButton,SIGNAL(clicked()), myImage, SLOT(Undo()));
     connect(redoButton,SIGNAL(clicked()), myImage, SLOT(Redo()));
+    connect(penSizeSlider,SIGNAL(valueChanged(int)), myImage, SLOT(SetPenSize(int)));
+    connect(colorButton,SIGNAL(clicked()), this, SLOT(SetColor()));
 }
 
+void MyImageEdit::SetColor()
+{
+    QColor col = QColorDialog::getColor(Qt::red, this);
+    //如果取消，则直接返回，不修改颜色
+    if(!col.isValid()) {
+        return;
+    }
+    QString sty = QString("background-color:rgba(%1, %2, %3, %4);")
+                      .arg(col.red()).arg(col.green()).arg(col.blue()).arg(col.alpha());
+    colorButton->setStyleSheet(sty);
+    myImage->SetPenColor( col.red(), col.green(), col.blue(), col.alpha() );
+}

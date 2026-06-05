@@ -20,6 +20,8 @@ public:
     //重载鼠标函数
     void mousePressEvent(QMouseEvent *e);
     void mouseMoveEvent(QMouseEvent *e);
+
+
 public slots:
     void Open();
     void SetPen();
@@ -27,9 +29,22 @@ public slots:
     void SetRect();
     void Undo();
     void Redo();
+    void SetPenSize(int size);
+    void SetPenColor(int r, int g, int b, int a) {
+        this->r = r;
+        this->g = g;
+        this->b = b;
+        this->a = a;
+    }
 protected:
 
     IController *c = 0;
+
+    int penSize = 5;
+    int r = 200;
+    int g = 0;
+    int b = 0;
+    int a = 255;    //不透明
 };
 
 #endif // XIMAGE_H

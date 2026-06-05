@@ -88,3 +88,12 @@ void IController::Redo()
     NotfyAll();
 }
 
+void IController::SetPara(std::string key, int val)
+{
+    if(!m) {
+        return;
+    }
+    m->SetPara(key, val);
+}
+
+

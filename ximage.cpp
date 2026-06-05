@@ -80,6 +80,11 @@ void XImage::Redo()
     update();
 
 }
+void XImage::SetPenSize(int size)
+{
+    penSize = size;
+}
+
 
 //鼠标重载函数
 void XImage::mousePressEvent(QMouseEvent *e)
@@ -88,6 +93,11 @@ void XImage::mousePressEvent(QMouseEvent *e)
     //m.Add( XPos(e->x(), e->y()) );
 
     c->AddModel();
+    c->SetPara("size", penSize);
+    c->SetPara("r", r);
+    c->SetPara("g", g);
+    c->SetPara("b", b);
+    c->SetPara("a", a);
     //c->Add(e->x(), e->y());
     c->Add(e->position().x(), e->position().y());
 }

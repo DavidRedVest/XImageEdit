@@ -3,6 +3,7 @@
 
 #include "ximage.h"
 #include <QColorDialog>
+#include <QIcon>
 
 MyImageEdit::MyImageEdit(QWidget *parent)
     : QWidget(parent)
@@ -69,7 +70,6 @@ void MyImageEdit::initUI(void)
     colorButton->setGeometry(QRect(50, 360, 50, 40));
     colorButton->setText("颜色");
 
-
     //创建一个按钮组来管理它们
     toolGroup = new QButtonGroup(this);
     toolGroup->setExclusive(true);  //设置互斥（默认就是ture)
@@ -105,6 +105,70 @@ void MyImageEdit::initUI(void)
     QPalette pal = myImage->palette();
     pal.setColor(QPalette::Window, Qt::white); // 设置窗口背景色为白色
     myImage->setPalette(pal);
+#endif
+
+
+#if 1
+    //增加图片资源
+    //设置图片图标
+    QIcon openIcon(":/Resources/open.png");
+    openB->setIcon(openIcon);
+    //调整图标大小填满按钮
+    openB->setIconSize(QSize(48, 48));
+    //去除原有的文本和默认边框
+    openB->setText("");
+    openB->setFlat(true); //设置为扁平化，去掉默认按下的立体边框
+    openB->setStyleSheet("border: none;");  //彻底去掉边框
+
+    //设置图片图标
+    QIcon penIcon(":/Resources/pen.png");
+    penButton->setIcon(penIcon);
+    //调整图标大小填满按钮
+    penButton->setIconSize(QSize(48, 48));
+    //去除原有的文本和默认边框
+    penButton->setText("");
+    penButton->setFlat(true); //设置为扁平化，去掉默认按下的立体边框
+    penButton->setStyleSheet("border: none;");  //彻底去掉边框
+
+    //设置图片图标
+    QIcon eraserIcon(":/Resources/eraser.png");
+    eraseButton->setIcon(eraserIcon);
+    //调整图标大小填满按钮
+    eraseButton->setIconSize(QSize(48, 48));
+    //去除原有的文本和默认边框
+    eraseButton->setText("");
+    eraseButton->setFlat(true); //设置为扁平化，去掉默认按下的立体边框
+    eraseButton->setStyleSheet("border: none;");  //彻底去掉边框
+
+    //设置图片图标
+    QIcon rectIcon(":/Resources/rect.png");
+    rectButton->setIcon(rectIcon);
+    //调整图标大小填满按钮
+    rectButton->setIconSize(QSize(56, 47));
+    //去除原有的文本和默认边框
+    rectButton->setText("");
+    rectButton->setFlat(true); //设置为扁平化，去掉默认按下的立体边框
+    rectButton->setStyleSheet("border: none;");  //彻底去掉边框
+
+    //设置图片图标
+    QIcon undoIcon(":/Resources/undo.png");
+    undoButton->setIcon(undoIcon);
+    //调整图标大小填满按钮
+    undoButton->setIconSize(QSize(56, 47));
+    //去除原有的文本和默认边框
+    undoButton->setText("");
+    undoButton->setFlat(true); //设置为扁平化，去掉默认按下的立体边框
+    undoButton->setStyleSheet("border: none;");  //彻底去掉边框
+
+    //设置图片图标
+    QIcon redoIcon(":/Resources/redo.png");
+    redoButton->setIcon(redoIcon);
+    //调整图标大小填满按钮
+    redoButton->setIconSize(QSize(56, 47));
+    //去除原有的文本和默认边框
+    redoButton->setText("");
+    redoButton->setFlat(true); //设置为扁平化，去掉默认按下的立体边框
+    redoButton->setStyleSheet("border: none;");  //彻底去掉边框
 #endif
 
 }

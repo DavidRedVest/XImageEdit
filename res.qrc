@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Resources/eraser.png</file>
+        <file>Resources/logo.ico</file>
+        <file>Resources/open.png</file>
+        <file>Resources/pen.png</file>
+        <file>Resources/rect.png</file>
+        <file>Resources/redo.png</file>
+        <file>Resources/save.png</file>
+        <file>Resources/undo.png</file>
+        <file>Resources/apple_logo.icns</file>
+    </qresource>
+</RCC>

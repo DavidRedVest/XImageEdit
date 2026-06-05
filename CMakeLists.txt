@@ -21,7 +21,11 @@ set(PROJECT_SOURCES
         xeditview.cpp
         xeditview.h
         myimageedit.ui
+        logo.rc
 )
+#new add
+set(MAC_ICON "apple_logo.icns")
+set_source_files_properties(${MAC_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(MyImageEdit
@@ -41,6 +45,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         xerasegraph.h xerasegraph.cpp
         xrectgraph.h xrectgraph.cpp
         ximagegraph.h ximagegraph.cpp
+        res.qrc
+        logo.rc
 
 
 
@@ -59,6 +65,7 @@ else()
     else()
         add_executable(MyImageEdit
             ${PROJECT_SOURCES}
+            ${MAC_ICON}
         )
     endif()
 endif()
@@ -77,6 +84,7 @@ set_target_properties(MyImageEdit PROPERTIES
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
+    MACOSX_BUNDLE_ICON_FILE "apple_logo.icns"
 )
 
 include(GNUInstallDirs)

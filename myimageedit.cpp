@@ -30,36 +30,36 @@ void MyImageEdit::initUI(void)
     if(penButton->objectName().isEmpty()) {
         penButton->setObjectName("LineButton");
     }
-    penButton->setGeometry(QRect(50, 110, 71, 51));
+    penButton->setGeometry(QRect(50, 90, 70, 50));
     penButton->setText("画笔");
     penButton->setCheckable(true);
     //penButton->setAutoExclusive(true);  //开启互斥,可以用QButtonGroup替代
     eraseButton = new QPushButton(this);
     eraseButton->setObjectName("EraseButton");
-    eraseButton->setGeometry(QRect(50, 160, 71, 51));
+    eraseButton->setGeometry(QRect(50, 170, 70, 50));
     eraseButton->setText("橡皮擦");
     eraseButton->setCheckable(true);
     //eraseButton->setAutoExclusive(true);    //开启互斥，可以用QButtonGroup替代
     rectButton = new QPushButton(this);
     rectButton->setObjectName("rectButton");
-    rectButton->setGeometry(QRect(50, 210, 71, 51));
+    rectButton->setGeometry(QRect(50, 260, 70, 50));
     rectButton->setText("矩形");
     rectButton->setCheckable(true);
     undoButton = new QPushButton(this);
     undoButton->setObjectName("undoButton");
-    undoButton->setGeometry(QRect(20, 260, 50, 40));
+    undoButton->setGeometry(QRect(20, 340, 50, 40));
     undoButton->setText("撤销");
     undoButton->setCheckable(true);
     redoButton = new QPushButton(this);
     redoButton->setObjectName("rectButton");
-    redoButton->setGeometry(QRect(80, 260, 50, 40));
+    redoButton->setGeometry(QRect(80, 340, 50, 40));
     redoButton->setText("重做");
     redoButton->setCheckable(true);
     penSizeSlider = new QSlider(this);
     if(penSizeSlider->objectName().isEmpty()) {
         penSizeSlider->setObjectName("penSizeSlider");
     }
-    penSizeSlider->setGeometry(QRect(10, 310, 100, 30));
+    penSizeSlider->setGeometry(QRect(10, 420, 100, 30));
     penSizeSlider->setOrientation(Qt::Orientation::Horizontal);
     //设置区间值
     penSizeSlider->setMinimum(5);
@@ -67,7 +67,7 @@ void MyImageEdit::initUI(void)
     penSizeSlider->setValue(5); //设置初始值
     colorButton = new QPushButton(this);
     colorButton->setObjectName("colorButton");
-    colorButton->setGeometry(QRect(50, 360, 50, 40));
+    colorButton->setGeometry(QRect(50, 500, 70, 50));
     colorButton->setText("颜色");
 
     //创建一个按钮组来管理它们
@@ -83,7 +83,7 @@ void MyImageEdit::initUI(void)
    // qDebug()<<"initUI test";
     openB = new QPushButton(this);
     openB->setObjectName("openB");
-    openB->setGeometry(QRect(60, 70, 51, 41));
+    openB->setGeometry(QRect(50, 10, 70, 50));
     openB->setText("Open");
     scrollArea = new QScrollArea(this);
     scrollArea->setObjectName("scrollArea");
@@ -111,40 +111,40 @@ void MyImageEdit::initUI(void)
 #if 1
     //增加图片资源
     //设置图片图标
-    QIcon openIcon(":/Resources/open.png");
+    QIcon openIcon(":/Resources/open.svg");
     openB->setIcon(openIcon);
     //调整图标大小填满按钮
-    openB->setIconSize(QSize(48, 48));
+    openB->setIconSize(QSize(70, 50));
     //去除原有的文本和默认边框
     openB->setText("");
     openB->setFlat(true); //设置为扁平化，去掉默认按下的立体边框
     openB->setStyleSheet("border: none;");  //彻底去掉边框
 
     //设置图片图标
-    QIcon penIcon(":/Resources/pen.png");
+    QIcon penIcon(":/Resources/pen.svg");
     penButton->setIcon(penIcon);
     //调整图标大小填满按钮
-    penButton->setIconSize(QSize(48, 48));
+    penButton->setIconSize(QSize(70, 50));
     //去除原有的文本和默认边框
     penButton->setText("");
     penButton->setFlat(true); //设置为扁平化，去掉默认按下的立体边框
     penButton->setStyleSheet("border: none;");  //彻底去掉边框
 
     //设置图片图标
-    QIcon eraserIcon(":/Resources/eraser.png");
+    QIcon eraserIcon(":/Resources/eraser.svg");
     eraseButton->setIcon(eraserIcon);
     //调整图标大小填满按钮
-    eraseButton->setIconSize(QSize(48, 48));
+    eraseButton->setIconSize(QSize(70, 50));
     //去除原有的文本和默认边框
     eraseButton->setText("");
     eraseButton->setFlat(true); //设置为扁平化，去掉默认按下的立体边框
     eraseButton->setStyleSheet("border: none;");  //彻底去掉边框
 
     //设置图片图标
-    QIcon rectIcon(":/Resources/rect.png");
+    QIcon rectIcon(":/Resources/rect.svg");
     rectButton->setIcon(rectIcon);
     //调整图标大小填满按钮
-    rectButton->setIconSize(QSize(56, 47));
+    rectButton->setIconSize(QSize(70, 50));
     //去除原有的文本和默认边框
     rectButton->setText("");
     rectButton->setFlat(true); //设置为扁平化，去掉默认按下的立体边框
@@ -154,7 +154,7 @@ void MyImageEdit::initUI(void)
     QIcon undoIcon(":/Resources/undo.png");
     undoButton->setIcon(undoIcon);
     //调整图标大小填满按钮
-    undoButton->setIconSize(QSize(56, 47));
+    undoButton->setIconSize(QSize(50, 40));
     //去除原有的文本和默认边框
     undoButton->setText("");
     undoButton->setFlat(true); //设置为扁平化，去掉默认按下的立体边框
@@ -164,11 +164,20 @@ void MyImageEdit::initUI(void)
     QIcon redoIcon(":/Resources/redo.png");
     redoButton->setIcon(redoIcon);
     //调整图标大小填满按钮
-    redoButton->setIconSize(QSize(56, 47));
+    redoButton->setIconSize(QSize(50, 40));
     //去除原有的文本和默认边框
     redoButton->setText("");
     redoButton->setFlat(true); //设置为扁平化，去掉默认按下的立体边框
     redoButton->setStyleSheet("border: none;");  //彻底去掉边框
+
+    QIcon colorIcon(":/Resources/color.svg");
+    colorButton->setIcon(colorIcon);
+    //调整图标大小填满按钮
+    colorButton->setIconSize(QSize(70, 50));
+    //去除原有的文本和默认边框
+    colorButton->setText("");
+    colorButton->setFlat(true); //设置为扁平化，去掉默认按下的立体边框
+    colorButton->setStyleSheet("border: none;");  //彻底去掉边框
 #endif
 
 }

@@ -88,7 +88,8 @@ void MyImageEdit::initUI(void)
     scrollArea = new QScrollArea(this);
     scrollArea->setObjectName("scrollArea");
     scrollArea->setGeometry(QRect(140, 0, 681, 621));
-    scrollArea->setWidgetResizable(true);
+    //对于图片编辑器，这里通常设置为false,允许内部的myImage保持自身真实大小
+    scrollArea->setWidgetResizable(false);
 #if 0
     myImage = new QWidget(this);
     myImage->setObjectName("myImage");
@@ -96,7 +97,8 @@ void MyImageEdit::initUI(void)
 #endif
     myImage = new XImage(); //提升属性
     myImage->setObjectName("myImage");
-    myImage->setGeometry(QRect(0, 0, 679, 619));
+    //对于图片编辑器，不需要这行代码
+    //myImage->setGeometry(QRect(0, 0, 679, 619));
     scrollArea->setWidget(myImage);
     //设置背景颜色
     //myImage->setStyleSheet("background-color: white;");

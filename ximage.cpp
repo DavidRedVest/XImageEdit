@@ -47,6 +47,10 @@ void XImage::Open()
     }
     //qDebug()<<"src.load image successful!";
 
+    //显示通知，刷新滚动条布局
+    if(this->parentWidget()) {
+        this->parentWidget()->update();
+    }
 
     //刷新显示
     update();

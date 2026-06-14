@@ -28,9 +28,12 @@ void XEditView::Update(XSubject *data)
 
     XModel *m = static_cast<XModel *>(data);
     //通过类型判断
-    views[m->type]->Draw(m);
-
-
+    auto it = views.find(m->type);
+    if(it != views.end()) {
+        //防止出现空的情况，以防程序崩溃
+        views[m->type]->Draw(m);
+    }
+    
 #if 0
     //使用容器初始化
     std::map<int, IGraph*>::iterator itr = views.begin();
@@ -59,6 +62,12 @@ void XEditView::InitDevice(void *d)
     if(!op) {
         op = new QPainter(&out);
     }
+
+    //让外部的XImage控件大小直接等于当前画布大小
+    if(device) {
+        device->resize(out.size());
+    }
+
     //上一次的清理掉
     op->end();
     op->begin(&out);
@@ -83,6 +92,12 @@ bool XEditView::InitBack(const char* url)
         op->end();
     }
     out = src.copy();
+
+    //图片载入成功后，动态调整XImage控件的大小为图片的实际宽高
+    if(device) {
+        device->resize(src.size());
+    }
+
     op->begin(&out);
     return true;
 }

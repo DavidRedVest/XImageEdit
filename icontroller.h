@@ -39,6 +39,8 @@ protected:
     //命令队列
     std::vector<XModel*> tasks;
     std::vector<XModel*> retasks;
+    //std::vector<std::shared_ptr<XModel*>> tasks;
+    //std::vector<std::shared_ptr<XModel*>> retasks;
 
     XSTATUS status = XPEN;
 };

@@ -14,6 +14,14 @@ MyImageEdit::MyImageEdit(QWidget *parent)
     initDate();
     initUI();
     initConnect();
+
+    //设置一个合理的最小尺寸，防止用户缩的太小导致按钮重叠
+    this->setMinimumSize(800, 600);
+
+    //启动时直接最大化
+    //this->showMaximized();
+    //或者启动时给一个合理的大小
+    this->resize(900, 800);
 }
 
 MyImageEdit::~MyImageEdit()
@@ -69,6 +77,12 @@ void MyImageEdit::initUI(void)
     colorButton->setObjectName("colorButton");
     colorButton->setGeometry(QRect(50, 500, 70, 50));
     colorButton->setText("颜色");
+    //保存按钮
+    saveButton = new QPushButton(this);
+    saveButton->setObjectName("saveButton");
+    saveButton->setGeometry(QRect(50, 580, 70, 50));
+    saveButton->setText("保存");
+    //saveButton->setCheckable(true);
 
     //创建一个按钮组来管理它们
     toolGroup = new QButtonGroup(this);
@@ -180,6 +194,16 @@ void MyImageEdit::initUI(void)
     colorButton->setText("");
     colorButton->setFlat(true); //设置为扁平化，去掉默认按下的立体边框
     colorButton->setStyleSheet("border: none;");  //彻底去掉边框
+
+    //设置图片图标
+    QIcon saveIcon(":/Resources/save.svg");
+    saveButton->setIcon(saveIcon);
+    //调整图标大小填满按钮
+    saveButton->setIconSize(QSize(70, 50));
+    //去除原有的文本和默认边框
+    saveButton->setText("");
+    saveButton->setFlat(true); //设置为扁平化，去掉默认按下的立体边框
+    saveButton->setStyleSheet("border: none;");  //彻底去掉边框
 #endif
 
 }
@@ -193,6 +217,7 @@ void MyImageEdit::initConnect(void)
     connect(redoButton,SIGNAL(clicked()), myImage, SLOT(Redo()));
     connect(penSizeSlider,SIGNAL(valueChanged(int)), myImage, SLOT(SetPenSize(int)));
     connect(colorButton,SIGNAL(clicked()), this, SLOT(SetColor()));
+    connect(saveButton,SIGNAL(clicked()), myImage, SLOT(SavePicture()));
 }
 
 void MyImageEdit::SetColor()

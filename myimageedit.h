@@ -45,6 +45,7 @@ public:
     QPushButton *rectButton;
     QPushButton *undoButton;
     QPushButton *redoButton;
+    QPushButton *saveButton;
     QSlider *penSizeSlider;
     QPushButton *colorButton;
 

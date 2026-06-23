@@ -96,4 +96,12 @@ void IController::SetPara(std::string key, int val)
     m->SetPara(key, val);
 }
 
+//委托给试图指针v执行保存
+bool IController::Save(const char *url)
+{
+    if(!v) {
+        return false;
+    }
+    return v->Save(url);
+}
 

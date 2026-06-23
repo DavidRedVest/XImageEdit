@@ -15,6 +15,9 @@ public:
     //绘制结果
     virtual void Paint() = 0;
 
+    //保存图片接口
+    virtual bool Save(const char *url) = 0;
+
 };
 
 #endif // IVIEW_H

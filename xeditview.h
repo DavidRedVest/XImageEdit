@@ -36,6 +36,9 @@ public:
     //绘制结果
     virtual void Paint();
 
+    //保存接口
+    virtual bool Save(const char *url) override;
+
     template<class ViewClass>
     IGraph* RegView(int type)
     {

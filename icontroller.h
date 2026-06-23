@@ -30,6 +30,8 @@ public:
     virtual void Undo();
     virtual void Redo();
     virtual void SetPara(std::string key, int val);
+    //保存
+    virtual bool Save(const char *ual);
 
     IController();
 protected:

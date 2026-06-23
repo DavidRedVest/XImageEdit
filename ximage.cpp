@@ -9,6 +9,7 @@
 
 #include "icontroller.h"
 #include "xcontrollerfactory.h"
+#include <QFileInfo>
 
 //XModel m;
 
@@ -89,7 +90,35 @@ void XImage::SetPenSize(int size)
     penSize = size;
 }
 
+void XImage::SavePicture(void)
+{
+    QString filename = QFileDialog::getSaveFileName(this, QStringLiteral("保存图片"),"",
+                            QStringLiteral("PNG图片 （*.png);;JPG图片（*.jpg);;BMP图片（*.bmp)"));
+    if(filename.isEmpty()) {
+        qDebug() << "Save filename is empty, cancel save.";
+        return;
+    }
+#if 1
+    //检查并将之补全后缀名
+    QFileInfo fileInfo(filename);
+    if(fileInfo.suffix().isEmpty()) {
+        //如果用户没有加后缀，默认加上.png
+        filename += ".png";
+    }
+    //使用局部保存变量 QByteArray，防止指针悬空
+    QByteArray ba = filename.toUtf8();
 
+#endif
+
+    // 调用控制器，将平台相关的 QString 转换为统一的 const char*
+//    if(c->Save(filename.toLocal8Bit()))
+    if(c->Save(ba.data()))
+    {
+        qDebug() << "Image saved successfully to:" << filename;
+    } else {
+        qDebug() << "Failed to save image!";
+    }
+}
 //鼠标重载函数
 void XImage::mousePressEvent(QMouseEvent *e)
 {

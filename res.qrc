@@ -17,5 +17,6 @@
         <file>Resources/rect.svg</file>
         <file>Resources/redo.svg</file>
         <file>Resources/undo.svg</file>
+        <file>Resources/save.svg</file>
     </qresource>
 </RCC>

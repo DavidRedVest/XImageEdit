@@ -124,3 +124,27 @@ void XEditView::Paint()
 #endif
 
 }
+
+//保存图片
+//将带有绘制效果的out图像保存到指定路径
+bool XEditView::Save(const char *url)
+{
+    if(out.isNull()) {
+        qDebug() << "XEditView: out 图像为空，没有数据可以保存！";
+        return false;
+    }
+    //Qt的QImage自带根据后缀名（png/jpg/bmp)自动编码保存的功能
+//    return out.save(QString::fromLocal8Bit(url));
+
+    // 对应前面的 toUtf8()，这里使用 fromUtf8() 解码
+    QString savePath = QString::fromUtf8(url);
+
+    // 调用 Qt 底层保存接口，quality 参数默认 -1
+    bool success = out.save(savePath);
+
+    if (!success) {
+        qDebug() << "XEditView: QImage::save 底层调用失败，请检查路径权限或格式。路径：" << savePath;
+    }
+
+    return success;
+}

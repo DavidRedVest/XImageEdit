@@ -36,6 +36,7 @@ public slots:
         this->b = b;
         this->a = a;
     }
+    void SavePicture();
 protected:
 
     IController *c = 0;

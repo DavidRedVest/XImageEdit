@@ -33,6 +33,8 @@ public:
     virtual void SetPara(std::string key, int val);
     //保存
     virtual bool Save(const char *ual);
+    //通知视图，当前工具已经绘制完毕
+    virtual void FinishModel();
 
     IController();
 protected:

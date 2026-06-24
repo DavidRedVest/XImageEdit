@@ -49,6 +49,9 @@ public:
 
     ~XEditView();
 
+    virtual void Commit() override;
+    virtual void Clear() override;
+
 
 protected:
     XEditView();
@@ -64,6 +67,8 @@ protected:
 
     //绘制到out
     QPainter *op = 0;
+
+    QImage baseLayer;   //底图层，保存已固定的历史操作
 };
 
 #endif // XEDITVIEW_H

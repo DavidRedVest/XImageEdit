@@ -146,6 +146,14 @@ void XImage::mouseMoveEvent(QMouseEvent *e)
     update();
 }
 
+void XImage::mouseReleaseEvent(QMouseEvent *e)
+{
+    //告诉控制器：这一笔画完了，固化图层
+    c->FinishModel();
+    //触发最后一次UI刷新
+    update();
+}
+
 void XImage::paintEvent(QPaintEvent *e)
 {
     c->Paint();

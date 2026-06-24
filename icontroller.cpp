@@ -53,20 +53,43 @@ void IController::Add(int x, int y)
         return;
     }
     m->Add(XPos(x, y));
-    NotfyAll();
+    NotfyAll(); //只触发当前模型更新，画在临时层上
 }
 
+void IController::FinishModel()
+{
+    if(v) {
+        v->Commit();
+    }
+
+}
 void IController::Paint()
 {
     v->Paint();
 }
 void IController::NotfyAll()
 {
+    if(!v) {
+        return;
+    }
+
+    //彻底清空画布到背景图
+    v->Clear();
+
+    //按照历史记录，把剩下的任务重新“重播”一遍
+    int size = tasks.size();
+    for(int i = 0; i < size; ++i) {
+        tasks[i]->Notify(); //画在临时层上
+        v->Commit();    //立即固化在底层图上
+    }
+
+#if 0
     int size = tasks.size();
     for(int i = 0; i < size; ++i)
     {
         tasks[i]->Notify();
     }
+#endif
 }
 //撤消
 void IController::Undo()

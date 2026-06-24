@@ -20,6 +20,7 @@ XEditView::~XEditView()
 
 }
 
+//双缓冲核心逻辑：每次鼠标移动重绘时调用
 void XEditView::Update(XSubject *data)
 {
     if(!data) {
@@ -27,13 +28,31 @@ void XEditView::Update(XSubject *data)
     }
 
     XModel *m = static_cast<XModel *>(data);
+
+    //擦除之前的残影：从干净的基础层拷贝覆盖当前输出层
+    if(op && op->isActive()) {
+        op->end();
+    }
+    out = baseLayer.copy();
+    op->begin(&out);
+    //重新初始化画笔指针，因为out的内存可能已经重新分配
+    for(auto& pair:views) {
+        pair.second->Init(op, &src);
+    }
+    //仅在输出层上绘制当前正在拖拽的这一个图形
+    if(views.find(m->type) != views.end()) {
+        views[m->type]->Draw(m);
+    }
+
+#if 0
     //通过类型判断
     auto it = views.find(m->type);
     if(it != views.end()) {
         //防止出现空的情况，以防程序崩溃
         views[m->type]->Draw(m);
     }
-    
+#endif
+
 #if 0
     //使用容器初始化
     std::map<int, IGraph*>::iterator itr = views.begin();
@@ -91,7 +110,11 @@ bool XEditView::InitBack(const char* url)
     if(op->isActive()) {
         op->end();
     }
-    out = src.copy();
+
+    //out = src.copy();
+    //原图加载后，初始化基础层和输出层
+    baseLayer = src.copy();
+    out = baseLayer.copy();
 
     //图片载入成功后，动态调整XImage控件的大小为图片的实际宽高
     if(device) {
@@ -148,3 +171,31 @@ bool XEditView::Save(const char *url)
 
     return success;
 }
+
+//清空所有绘制，恢复为原图
+void XEditView::Clear()
+{
+    if(op && op->isActive()) {
+        op->end();
+    }
+
+    baseLayer = src.copy();
+    out = baseLayer.copy();
+    op->begin(&out);
+
+    //重新绑定所有工具的画家指针
+    for(auto& pair : views) {
+        pair.second->Init(op, &src);
+    }
+
+}
+
+//将鼠标松开时的最终画面固化到基础层
+void XEditView::Commit()
+{
+    baseLayer = out.copy();
+}
+
+
+
+

@@ -4,6 +4,9 @@
 #include "ximage.h"
 #include <QColorDialog>
 #include <QIcon>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QSpacerItem>
 
 MyImageEdit::MyImageEdit(QWidget *parent)
     : QWidget(parent)
@@ -34,6 +37,59 @@ void MyImageEdit::initDate(void)
 }
 void MyImageEdit::initUI(void)
 {
+#if 1
+    //使用布局管理器
+    openB = new QPushButton(this);
+    penButton = new QPushButton(this);
+    penButton->setText("画笔");
+    eraseButton = new QPushButton(this);
+    eraseButton->setText("橡皮擦");
+    rectButton = new QPushButton(this);
+    undoButton = new QPushButton(this);
+    redoButton = new QPushButton(this);
+    penSizeSlider = new QSlider(this);
+    penSizeSlider->setMinimum(5);
+    penSizeSlider->setMaximum(50);
+    penSizeSlider->setValue(5); //设置初始值
+    colorButton = new QPushButton(this);
+    saveButton = new QPushButton(this);
+    scrollArea = new QScrollArea(this);
+    scrollArea->setObjectName("scrollArea");
+    // 【关键优化 1】：关闭内部 Widget 的强制拉伸。
+    // 这意味着里面的 XImage 可以保持其真实的像素大小，超出部分会自动出现滚动条。
+    scrollArea->setWidgetResizable(false);
+    myImage = new XImage();
+    myImage->setObjectName("myImage");
+    scrollArea->setWidget(myImage);
+    //构建左侧工具栏垂直布局 (QVBoxLayout)
+    QVBoxLayout *leftLayout = new QVBoxLayout();
+    leftLayout->addWidget(openB);
+    leftLayout->addWidget(saveButton);
+    leftLayout->addWidget(penButton);
+    leftLayout->addWidget(eraseButton);
+    leftLayout->addWidget(rectButton);
+    // 撤销和重做按钮并排显示比较好看，套一个水平布局
+    QHBoxLayout *historyLayout = new QHBoxLayout();
+    historyLayout->addWidget(undoButton);
+    historyLayout->addWidget(redoButton);
+    leftLayout->addLayout(historyLayout);
+    leftLayout->addWidget(penSizeSlider);
+    leftLayout->addWidget(colorButton);
+    // 加一个弹簧 (Spacer)，把上面的按钮全顶到最上面
+    QSpacerItem *spacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    leftLayout->addItem(spacer);
+    //构建全局水平布局 (QHBoxLayout)
+    QHBoxLayout *mainLayout = new QHBoxLayout(this);
+    // 把左侧工具栏加进来
+    mainLayout->addLayout(leftLayout);
+    // 把滚动区域加进来，参数 1 表示拉伸因子，让它占据所有剩余空间
+    mainLayout->addWidget(scrollArea, 1);
+    // 应用布局到主窗口
+    this->setLayout(mainLayout);
+
+#endif
+
+#if 0
     penButton = new QPushButton(this);
     if(penButton->objectName().isEmpty()) {
         penButton->setObjectName("LineButton");
@@ -122,7 +178,7 @@ void MyImageEdit::initUI(void)
     pal.setColor(QPalette::Window, Qt::white); // 设置窗口背景色为白色
     myImage->setPalette(pal);
 #endif
-
+#endif
 
 #if 1
     //增加图片资源

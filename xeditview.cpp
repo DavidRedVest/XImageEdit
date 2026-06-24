@@ -84,7 +84,8 @@ void XEditView::InitDevice(void *d)
 
     //让外部的XImage控件大小直接等于当前画布大小
     if(device) {
-        device->resize(out.size());
+        //device->resize(out.size());
+        device->setFixedSize(out.size());   //默认画布大小跟随 out 的初始化大小
     }
 
     //上一次的清理掉
@@ -118,7 +119,8 @@ bool XEditView::InitBack(const char* url)
 
     //图片载入成功后，动态调整XImage控件的大小为图片的实际宽高
     if(device) {
-        device->resize(src.size());
+       // device->resize(src.size());
+        device->setFixedSize(src.size());   //强制 XImage 控件的固定大小与图片的实际像素大小一致 (1:1)
     }
 
     op->begin(&out);

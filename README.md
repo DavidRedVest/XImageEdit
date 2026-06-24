@@ -1,5 +1,7 @@
 # 说明 
 
+
+
 图片编辑器功能实现：
 
 - 打开保存图片
@@ -22,6 +24,30 @@
 - facade门面（外观）模式：控制器对外
 - 抽象工厂模式：创建MVC
 - observer观察者模式：V和M通信
+
+# 程序编译运行
+
+```C
+
+//清除旧的缓存
+rm -rf build
+  
+//重新配置构建树
+cmake -B build
+  
+//编译
+cmake --build build -j8
+//或者格式化代码
+cmake --build build --target format
+  
+//运行程序
+open build/MyImageEdit.app  
+
+```
+
+
+
+
 
 # V1版本 
 
@@ -50,3 +76,12 @@
 ## 工程化与规范化建设 
 
 一个成熟的项目不仅在于代码本身，还在于它的工程化程度。如引入规范的 `Doxygen `格式注释。
+
+
+
+# 优化 
+
+- 完成了C++和智能指针的优化，使用了shared_ptr智能指针
+- 引入了标准布局Layout
+- 引入双缓冲机制，优化渲染性能
+- 引入Doxygen格式注释规范，重新编排代码规范

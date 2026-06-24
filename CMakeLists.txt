@@ -9,47 +9,61 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+
+
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
-        main.cpp
-        myimageedit.cpp
-        myimageedit.h
-        ximage.cpp
-        ximage.h
-        xeditview.cpp
-        xeditview.h
-        myimageedit.ui
-        logo.rc
+        src/main.cpp
+        src/myimageedit.cpp
+        include/myimageedit.h
+        src/ximage.cpp
+        include/ximage.h
+        src/xeditview.cpp
+        include/xeditview.h
+        src/myimageedit.ui
 )
 #new add
 set(MAC_ICON "apple_logo.icns")
 set_source_files_properties(${MAC_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(MyImageEdit
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        ximage.h ximage.cpp
-        xeditview.h xeditview.cpp
-        xsubject.h xsubject.cpp
-        iobserver.h
-        xmodel.h xmodel.cpp
-        icontroller.h icontroller.cpp
-        icontrollerfactory.h
-        iview.h
-        xcontrollerfactory.h xcontrollerfactory.cpp
-        igraph.h
-        xpengraph.h xpengraph.cpp
-        xerasegraph.h xerasegraph.cpp
-        xrectgraph.h xrectgraph.cpp
-        ximagegraph.h ximagegraph.cpp
-        res.qrc
-        logo.rc
-
-
-
+        include/xsubject.h src/xsubject.cpp
+        include/iobserver.h
+        include/xmodel.h src/xmodel.cpp
+        include/icontroller.h src/icontroller.cpp
+        include/icontrollerfactory.h
+        include/iview.h
+        include/xcontrollerfactory.h src/xcontrollerfactory.cpp
+        include/igraph.h
+        include/xpengraph.h src/xpengraph.cpp
+        include/xerasegraph.h src/xerasegraph.cpp
+        include/xrectgraph.h src/xrectgraph.cpp
+        include/ximagegraph.h src/ximagegraph.cpp
+        include/constants.h
+        Resources/res.qrc
+#        ximage.h ximage.cpp
+#        xeditview.h xeditview.cpp
+#        xsubject.h xsubject.cpp
+#        iobserver.h
+#        xmodel.h xmodel.cpp
+#        icontroller.h icontroller.cpp
+#        icontrollerfactory.h
+#        iview.h
+#        xcontrollerfactory.h xcontrollerfactory.cpp
+#        igraph.h
+#        xpengraph.h xpengraph.cpp
+#        xerasegraph.h xerasegraph.cpp
+#        xrectgraph.h xrectgraph.cpp
+#        ximagegraph.h ximagegraph.cpp
+#        res.qrc
+#        logo.rc
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET MyImageEdit APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -68,6 +82,19 @@ else()
             ${MAC_ICON}
         )
     endif()
+endif()
+
+# 在设置了 C++17 标准之后添加：
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang|GNU")
+    target_compile_options(MyImageEdit PRIVATE
+        -Wall                   # 开启大部分警告
+        -Wextra                 # 开启额外警告
+        -Wpedantic              # 遵循严格的 ISO C++ 标准
+        -Wshadow                # 警告变量隐藏
+        -Wnon-virtual-dtor      # 警告含有虚函数但析构函数不是虚函数的类 (非常重要！)
+    )
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    target_compile_options(MyImageEdit PRIVATE /W4 /WX) # W4级别警告，并将警告视为错误
 endif()
 
 target_link_libraries(MyImageEdit PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
@@ -96,4 +123,28 @@ install(TARGETS MyImageEdit
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(MyImageEdit)
+endif()
+
+# ==========================================
+# 添加一键格式化代码的 Custom Target
+# ==========================================
+# 1. 递归查找 src 和 include 目录下的所有 C++ 源文件和头文件
+file(GLOB_RECURSE ALL_SOURCE_FILES
+    "src/*.cpp"
+    "src/*.h"
+    "include/*.h"
+)
+
+# 2. 找到系统中的 clang-format 执行文件
+find_program(CLANG_FORMAT_EXE clang-format)
+
+if(CLANG_FORMAT_EXE)
+    # 3. 创建一个名叫 "format" 的伪目标
+    add_custom_target(format
+        COMMAND ${CLANG_FORMAT_EXE} -i -style=file ${ALL_SOURCE_FILES}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        COMMENT "正在使用 Clang-Format 格式化所有代码..."
+    )
+else()
+    message(WARNING "未找到 clang-format，请确认是否已安装")
 endif()

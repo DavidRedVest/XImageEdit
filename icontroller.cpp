@@ -37,7 +37,10 @@ void IController::AddModel(int s)
 {
     if(s<0) s = status;
     //创建模型
-    m = f->CreateM();
+    //m = f->CreateM();
+    //使用shared_ptr结果工厂返回的裸指针
+    m = std::shared_ptr<XModel>(f->CreateM());
+
     //添加观察者
     m->Attach(v);
     m->type = s;

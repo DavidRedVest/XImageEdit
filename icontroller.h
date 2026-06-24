@@ -3,6 +3,7 @@
 
 #include "icontrollerfactory.h"
 #include <vector>
+#include <memory>
 
 enum XSTATUS
 {
@@ -36,13 +37,16 @@ public:
     IController();
 protected:
     IView *v = 0;
-    XModel *m = 0;
+
+    //XModel *m = 0;    //删除旧的指针
+    std::shared_ptr<XModel> m;  //改为智能指针
+
     IControllerFactory *f = 0;
     //命令队列
-    std::vector<XModel*> tasks;
-    std::vector<XModel*> retasks;
-    //std::vector<std::shared_ptr<XModel*>> tasks;
-    //std::vector<std::shared_ptr<XModel*>> retasks;
+    //std::vector<XModel*> tasks;
+    //std::vector<XModel*> retasks;
+    std::vector<std::shared_ptr<XModel>> tasks;
+    std::vector<std::shared_ptr<XModel>> retasks;
 
     XSTATUS status = XPEN;
 };

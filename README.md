@@ -1,87 +1,101 @@
-# 说明 
+# XImageEdit
 
+基于Qt6 + C++17实现跨平台图片编辑器，采用MVC架构设计，支持macOS/Windows
 
+![](image/app_release_v1.png) 
 
-图片编辑器功能实现：
+# 功能 
 
-- 打开保存图片
-- 画线
-- 橡皮擦
-- 画矩阵
-- 易于扩展（添加功能，比如画圆形）
-- 模块易替换（如将Qt替换为MFC）
-- 用户接口简洁（封装）
+| 功能        | 说明                         |
+| ----------- | ---------------------------- |
+| 打开 / 保存 | 支持 PNG、JPG、BMP 格式      |
+| 画笔        | 自由绘制，可调笔刷大小与颜色 |
+| 橡皮擦      | 局部擦除，基于原图像素还原   |
+| 矩形        | 拖拽绘制矩形边框             |
+| 撤销 / 重做 | 基于命令队列的多步历史记录   |
 
-使用模式设计MVC模式：
+# 架构 
 
-- Mode （模型）：数据逻辑
-- View（视图）：数据显示
-- Controller（控制器）：用户交互的部分
+采用 MVC 设计模式，各层职责清晰、模块可独立替换（如将 Qt 替换为 MFC 只需重新实现 `IView`）。
 
-用到的设计模式：
+```
+┌─────────────────────────────────────────────┐
+│  View                                        │
+│  MyImageEdit (主窗口)  XImage (画布 QWidget) │
+│  XEditView (IView 实现，双缓冲渲染)           │
+└───────────────────┬─────────────────────────┘
+                    │ IController (Facade)
+┌───────────────────▼─────────────────────────┐
+│  Controller                                  │
+│  IController — 统一对外接口                  │
+│  XControllerFactory — 抽象工厂，创建 MVC     │
+└───────────────────┬─────────────────────────┘
+                    │ Observer 通知
+┌───────────────────▼─────────────────────────┐
+│  Model                                       │
+│  XModel (XSubject) — 存储坐标与绘制参数      │
+│  IGraph 策略族 — XPenGraph / XEraseGraph /   │
+│                   XRectGraph / XImageGraph   │
+└─────────────────────────────────────────────┘
+```
 
-- singleton单例模式：唯一的构建者控制器工厂
-- facade门面（外观）模式：控制器对外
-- 抽象工厂模式：创建MVC
-- observer观察者模式：V和M通信
+## 用到的设计模式
 
-# 程序编译运行
+- **抽象工厂**：`IControllerFactory` / `XControllerFactory` 统一创建 M、V、C
 
-```C
+- **单例**：`XEditView`、`XControllerFactory` 保证全局唯一实例
 
-//清除旧的缓存
+- **外观（Facade）**：`IController` 对外暴露简洁接口，隐藏内部 MVC 协作细节
+
+- **观察者**：`XModel`（Subject）变化时通知 `XEditView`（Observer）触发重绘
+
+- **策略**：`IGraph` 族在运行时按当前工具类型选择对应的绘制算法
+
+# 环境要求 
+
+- CMake ≥ 3.16
+
+- Qt 6.x（Widgets 模块）
+
+- C++17 兼容编译器（Clang / GCC / MSVC）
+
+- clang-format（可选，用于代码格式化）
+
+## 编译运行 
+
+```base 
+# 清除旧缓存
 rm -rf build
-  
-//重新配置构建树
-cmake -B build
-  
-//编译
-cmake --build build -j8
-//或者格式化代码
-cmake --build build --target format
-  
-//运行程序
-open build/MyImageEdit.app  
 
+# 配置
+cmake -B build
+
+# 编译（8 线程）
+cmake --build build -j8
+
+# 格式化代码（可选）
+cmake --build build --target format
+
+# 运行
+# macOS
+open build/MyImageEdit.app
+# Windows
+.\build\MyImageEdit.exe
 ```
 
 
 
+# 扩展指南 
 
+**添加新绘图工具（以"画圆"为例）：**
 
-# V1版本 
+1. 在 `constants.h` 的 `XSTATUS` 枚举中添加 `XCIRCLE`
+2. 新建 `include/xcirclegraph.h` 和 `src/xcirclegraph.cpp`，继承 `IGraph` 实现 `Draw()`
+3. 在 `XControllerFactory::CreateV()` 中注册：`RegView<XCircleGraph>(XCIRCLE)`
+4. 在 `XImage` 中添加 `SetCircle()` slot，连接对应按钮
 
-第一个初始版本
+其余代码无需改动。
 
-![](image/app_runv1.png) 
+## 许可证
 
-代码可以继续优化的方向：
-
-## 内存管理与现代C++ 
-
-全面拥抱C++17， `CMakeLists.txt`已经非常标准地设置了 `set(CMAKE_CXX_STANDARD 17)`，但在核心代码中仍然大量使用了传统的裸指针和手动管理生命周期的方法，这在现代 `C++ `开发中存在较高的内存泄漏风险。
-
-
-
-## 引入标准布局管理器 (Layouts)
-
-在 `myimageedit.cpp `中，`UI` 控件仍使用绝对坐标（如 `setGeometry(QRect(50, 90, 70, 50))`）。虽然我们之前重写了 `resizeEvent` 来动态调整画布大小，但左侧工具栏仍然是“死”的。 优化方案：引入 `Qt `的 `QHBoxLayout `和 `QVBoxLayout`。
-
-
-
-## 渲染管线的性能优化 (双缓冲与脏矩形) 
-
-虽然目前的 `paintEvent `挥发渲染能够解决残影问题，但如果未来要处理高分辨率图像，每次鼠标移动都触发全图重绘会导致 CPU 飙升。
-
-## 工程化与规范化建设 
-
-一个成熟的项目不仅在于代码本身，还在于它的工程化程度。如引入规范的 `Doxygen `格式注释。
-
-
-
-# 优化 
-
-- 完成了C++和智能指针的优化，使用了shared_ptr智能指针
-- 引入了标准布局Layout
-- 引入双缓冲机制，优化渲染性能
-- 引入Doxygen格式注释规范，重新编排代码规范
+MIT License

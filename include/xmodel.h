@@ -5,10 +5,8 @@
 #include <vector>
 
 #include "xsubject.h"
-struct XPos
-{
-    XPos(int x, int y)
-    {
+struct XPos {
+    XPos(int x, int y) {
         this->x = x;
         this->y = y;
     }
@@ -16,15 +14,15 @@ struct XPos
     int y = 0;
 };
 
-class XModel : public XSubject
-{
+class XModel : public XSubject {
    public:
     // 点坐标
     std::vector<XPos> poss;
 
     void Add(XPos pos);
 
-    void SetPara(std::string key, int val);
+    // void SetPara(std::string key, int val);
+    void SetPara(const std::string& key, int val);
     int GetPara(std::string key);
 
     XModel();

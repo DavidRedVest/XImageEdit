@@ -86,12 +86,18 @@ void IController::NotfyAll() {
 }
 // 撤消
 void IController::Undo() {
+#if 0    
     int last = tasks.size() - 1;  // 下表从0开始
     if (last < 2) {
         return;
     }
     retasks.push_back(tasks[last]);
-    ;
+#endif
+
+    if (tasks.size() <= 1) {  // 保留背景图
+        return;
+    }
+    retasks.push_back(tasks.back());
     tasks.pop_back();
     NotfyAll();
 }

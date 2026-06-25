@@ -25,15 +25,22 @@ set(PROJECT_SOURCES
         src/myimageedit.ui
 )
 #new add
-set(MAC_ICON "apple_logo.icns")
-set_source_files_properties(${MAC_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+if(APPLE)
 
+set(APP_ICON_MACOS "${CMAKE_CURRENT_SOURCE_DIR}/Resources/apple_logo.icns")
+set_source_files_properties(${APP_ICON_MACOS} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(PLATFORM_ICON ${APP_ICON_MACOS})
+elseif(WIN32)
+        # Windows 图标通过 .rc 文件嵌入
+    set(PLATFORM_ICON "${CMAKE_CURRENT_SOURCE_DIR}/Resources/logo.rc")
+endif()
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(MyImageEdit
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        ${PLATFORM_ICON} #new add
         include/xsubject.h src/xsubject.cpp
         include/iobserver.h
         include/xmodel.h src/xmodel.cpp

@@ -13,11 +13,9 @@ class QWidget;
 class IGraph;
 
 // class XEditView :public IObserver
-class XEditView : public IView
-{
+class XEditView : public IView {
    public:
-    static XEditView& getInstance()
-    {
+    static XEditView& getInstance() {
         // C++11 标准保证了局部静态变量的初始化时线程安全的
         static XEditView v;
         return v;
@@ -39,8 +37,7 @@ class XEditView : public IView
     virtual bool Save(const char* url) override;
 
     template <class ViewClass>
-    IGraph* RegView(int type)
-    {
+    IGraph* RegView(int type) {
         ViewClass* view = new ViewClass();
         views.insert(std::make_pair(type, view));
         return view;
@@ -51,20 +48,25 @@ class XEditView : public IView
     virtual void Commit() override;
     virtual void Clear() override;
 
+   private:
+    // 重制输出层并立即重新绑定画家，同时通知所有IGraph
+    // 凡是要给out赋新值，必须且只能通过这个函数
+    void resetOutLayer(const QImage& source);
+
    protected:
     XEditView();
 
     // 图元编号 外部维护
     std::map<int, IGraph*> views;
 
-    QWidget* device;
+    QWidget* device = nullptr;
     // 原图
     QImage src;
     // 输出图
     QImage out;
 
     // 绘制到out
-    QPainter* op = 0;
+    QPainter* op = nullptr;
 
     QImage baseLayer;  // 底图层，保存已固定的历史操作
 };

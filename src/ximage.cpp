@@ -13,9 +13,9 @@
 
 // XModel m;
 
-XImage::XImage(QWidget* p) : QWidget(p)
-{
-    c = IController::Create(new XControllerFactory());
+XImage::XImage(QWidget* p) : QWidget(p) {
+    // c = IController::Create(new XControllerFactory());
+    c.reset(IController::Create(&XControllerFactory::getInstance()));
     c->Init(this);
 
     // XEditView::getInstance().InitDevice(this);
@@ -23,36 +23,31 @@ XImage::XImage(QWidget* p) : QWidget(p)
     // m.Attach(&XEditView::getInstance());
 }
 
-XImage::~XImage()
-{
+XImage::~XImage() {
 }
 
-void XImage::Open()
-{
+void XImage::Open() {
     // qDebug() << "XImage::Open()" ;
 
     // 打开图片
     QString filename = QFileDialog::getOpenFileName(
         this, QStringLiteral("打开图片"), "",
         QStringLiteral("支持的格式(*.png *.jpg *.bmp)"));
-    if (filename.isEmpty())
-    {
+    if (filename.isEmpty()) {
         qDebug() << "Open filename is empty!";
         return;
     }
     // 加载图片
     // if(!src.load(filename)) {
     // if(!XEditView::getInstance().InitBack(filename.toLocal8Bit())) {
-    if (!c->InitBack(filename.toLocal8Bit()))
-    {
+    if (!c->InitBack(filename.toLocal8Bit())) {
         qDebug() << "src.load image failed!";
         return;
     }
     // qDebug()<<"src.load image successful!";
 
     // 显示通知，刷新滚动条布局
-    if (this->parentWidget())
-    {
+    if (this->parentWidget()) {
         this->parentWidget()->update();
     }
 
@@ -60,51 +55,42 @@ void XImage::Open()
     update();
 }
 
-void XImage::SetPen()
-{
+void XImage::SetPen() {
     c->SetStatus(XPEN);
 }
-void XImage::SetErase()
-{
+void XImage::SetErase() {
     c->SetStatus(XERASER);
 }
-void XImage::SetRect()
-{
+void XImage::SetRect() {
     c->SetStatus(XRECT);
 }
 
-void XImage::Undo()
-{
+void XImage::Undo() {
     c->Undo();
     // 刷新显示
     update();
 }
-void XImage::Redo()
-{
+void XImage::Redo() {
     c->Redo();
     // 刷新显示
     update();
 }
-void XImage::SetPenSize(int size)
-{
+void XImage::SetPenSize(int size) {
     penSize = size;
 }
 
-void XImage::SavePicture(void)
-{
+void XImage::SavePicture(void) {
     QString filename = QFileDialog::getSaveFileName(
         this, QStringLiteral("保存图片"), "",
         QStringLiteral("PNG图片 （*.png);;JPG图片（*.jpg);;BMP图片（*.bmp)"));
-    if (filename.isEmpty())
-    {
+    if (filename.isEmpty()) {
         qDebug() << "Save filename is empty, cancel save.";
         return;
     }
 #if 1
     // 检查并将之补全后缀名
     QFileInfo fileInfo(filename);
-    if (fileInfo.suffix().isEmpty())
-    {
+    if (fileInfo.suffix().isEmpty()) {
         // 如果用户没有加后缀，默认加上.png
         filename += ".png";
     }
@@ -115,18 +101,14 @@ void XImage::SavePicture(void)
 
     // 调用控制器，将平台相关的 QString 转换为统一的 const char*
     //    if(c->Save(filename.toLocal8Bit()))
-    if (c->Save(ba.data()))
-    {
+    if (c->Save(ba.data())) {
         qDebug() << "Image saved successfully to:" << filename;
-    }
-    else
-    {
+    } else {
         qDebug() << "Failed to save image!";
     }
 }
 // 鼠标重载函数
-void XImage::mousePressEvent(QMouseEvent* e)
-{
+void XImage::mousePressEvent(QMouseEvent* e) {
     // XEditView::getInstance().poss.push_back(XPos(e->x(), e->y()));
     // m.Add( XPos(e->x(), e->y()) );
 
@@ -140,8 +122,7 @@ void XImage::mousePressEvent(QMouseEvent* e)
     c->Add(e->position().x(), e->position().y());
 }
 // 默认鼠标移动事件，按下才触发
-void XImage::mouseMoveEvent(QMouseEvent* e)
-{
+void XImage::mouseMoveEvent(QMouseEvent* e) {
     // XEditView::getInstance().poss.push_back(XPos(e->x(), e->y()));
     // m.Add(XPos(e->x(), e->y()));
 
@@ -151,16 +132,14 @@ void XImage::mouseMoveEvent(QMouseEvent* e)
     update();
 }
 
-void XImage::mouseReleaseEvent(QMouseEvent* e)
-{
+void XImage::mouseReleaseEvent(QMouseEvent* e) {
     // 告诉控制器：这一笔画完了，固化图层
     c->FinishModel();
     // 触发最后一次UI刷新
     update();
 }
 
-void XImage::paintEvent(QPaintEvent* e)
-{
+void XImage::paintEvent(QPaintEvent* e) {
     c->Paint();
     // XEditView::getInstance().Paint();
 

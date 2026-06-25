@@ -31,6 +31,15 @@ MyImageEdit::~MyImageEdit() {
 }
 void MyImageEdit::initDate(void) {
 }
+static void setupIconButton(QPushButton* btn, const QString& iconPath,
+                            const QSize& size = {70, 50}) {
+    btn->setIcon(QIcon(iconPath));
+    btn->setIconSize(size);
+    btn->setText("");
+    btn->setFlat(true);
+    btn->setStyleSheet("border: none;");
+}
+
 void MyImageEdit::initUI(void) {
 #if 1
     // 使用布局管理器
@@ -177,7 +186,7 @@ void MyImageEdit::initUI(void) {
 #endif
 #endif
 
-#if 1
+#if 0
     // 增加图片资源
     // 设置图片图标
     QIcon openIcon(":/Resources/open.svg");
@@ -257,6 +266,18 @@ void MyImageEdit::initUI(void) {
     saveButton->setText("");
     saveButton->setFlat(true);  // 设置为扁平化，去掉默认按下的立体边框
     saveButton->setStyleSheet("border: none;");  // 彻底去掉边框
+#endif
+    /* 上述设置图标代码有大量重复代码，提取一个辅助函数 */
+#if 1
+    setupIconButton(openB, ":/Resources/open.svg");
+    setupIconButton(penButton, ":/Resources/pen.svg");
+    setupIconButton(eraseButton, ":/Resources/eraser.svg");
+    setupIconButton(rectButton, ":/Resources/rect.svg");
+    setupIconButton(undoButton, ":/Resources/undo.svg", {50, 40});
+    setupIconButton(redoButton, ":/Resources/redo.svg", {50, 40});
+    setupIconButton(colorButton, ":/Resources/color.svg");
+    setupIconButton(saveButton, ":/Resources/save.svg");
+
 #endif
 }
 void MyImageEdit::initConnect(void) {

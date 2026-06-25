@@ -39,7 +39,8 @@ class XImage : public QWidget {
     void SavePicture();
 
    protected:
-    IController* c = 0;
+    // IController* c = 0;
+    std::unique_ptr<IController> c;
 
     // int penSize = 5;
     // int r = 200;

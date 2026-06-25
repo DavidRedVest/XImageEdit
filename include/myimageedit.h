@@ -11,14 +11,12 @@
 class XImage;
 
 QT_BEGIN_NAMESPACE
-namespace Ui
-{
+namespace Ui {
 class MyImageEdit;
 }
 QT_END_NAMESPACE
 
-class MyImageEdit : public QWidget
-{
+class MyImageEdit : public QWidget {
     Q_OBJECT
 
    public:
@@ -28,7 +26,7 @@ class MyImageEdit : public QWidget
    private:
     Ui::MyImageEdit* ui;
 
-   public:
+   private:
     void initDate();
     void initUI();
     void initConnect();

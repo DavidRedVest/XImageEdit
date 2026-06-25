@@ -16,10 +16,6 @@ XModel* XControllerFactory::CreateM() {
     return new XModel();
 }
 IView* XControllerFactory::CreateV() {
-    // XEditView::getInstance().RegView<XPenGraph>(XPEN);
-    // XEditView::getInstance().RegView<XEraseGraph>(XERASER);
-    // XEditView::getInstance().RegView<XRectGraph>(XRECT);
-    // XEditView::getInstance().RegView<XImageGraph>(XIMAGE);
     return &(XEditView::getInstance());
 }
 IController* XControllerFactory::CreateC() {

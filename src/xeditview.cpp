@@ -14,11 +14,9 @@
 
 XEditView::XEditView() {
     // 初始化图像，未打开图像，直接画像
-    //    out = QImage(1280, 720, QImage::Format_RGB888);
     out = QImage(AppConfig::DEFAULT_CANVAS_WIDTH,
                  AppConfig::DEFAULT_CANVAS_HEIGHT, QImage::Format_RGB888);
     out.fill(Qt::white);  // 初始化为白色背景，默认是黑色
-    // src = QImage(1280, 720, QImage::Format_RGB888);
     src = QImage(AppConfig::DEFAULT_CANVAS_WIDTH,
                  AppConfig::DEFAULT_CANVAS_HEIGHT, QImage::Format_RGB888);
     // src.fill(Qt::white);
@@ -56,51 +54,6 @@ void XEditView::Update(XSubject* data) {
     if (it != views.end()) {
         it->second->Draw(m);
     }
-
-#if 0    
-    // 擦除之前的残影：从干净的基础层拷贝覆盖当前输出层
-    if (op && op->isActive()) {
-        op->end();
-    }
-    out = baseLayer.copy();
-    op->begin(&out);
-    // 重新初始化画笔指针，因为out的内存可能已经重新分配
-    for (auto& pair : views) {
-        pair.second->Init(op, &src);
-    }
-    // 仅在输出层上绘制当前正在拖拽的这一个图形
-    if (views.find(m->type) != views.end()) {
-        views[m->type]->Draw(m);
-    }
-#endif
-#if 0
-    //通过类型判断
-    auto it = views.find(m->type);
-    if(it != views.end()) {
-        //防止出现空的情况，以防程序崩溃
-        views[m->type]->Draw(m);
-    }
-#endif
-
-#if 0
-    //使用容器初始化
-    std::map<int, IGraph*>::iterator itr = views.begin();
-
-    for(; itr != views.end(); itr++)
-    {
-        itr->second->Draw(m);
-    }
-#endif
-    // xpen.Draw(m);
-
-#if 0
-    int size = m->poss.size();
-    QPainter p(&out);
-    for(int i = 1; i < size; ++i) {
-        //绘制线，开始点到结束点
-        p.drawLine(QLine(m->poss[i - 1].x, m->poss[i - 1].y, m->poss[i].x, m->poss[i].y));
-    }
-#endif
 }
 
 // 显示目标
@@ -111,30 +64,6 @@ void XEditView::InitDevice(void* d) {
     }
     // out内容不变，只是首次绑定op
     resetOutLayer(out);
-
-#if 0    
-    this->device = (QWidget*)d;
-    if (!op) {
-        op = new QPainter(&out);
-    }
-
-    // 让外部的XImage控件大小直接等于当前画布大小
-    if (device) {
-        // device->resize(out.size());
-        device->setFixedSize(out.size());  // 默认画布大小跟随 out 的初始化大小
-    }
-
-    // 上一次的清理掉
-    op->end();
-    op->begin(&out);
-
-    // 使用容器初始化
-    std::map<int, IGraph*>::iterator itr = views.begin();
-    for (; itr != views.end(); itr++) {
-        itr->second->Init(op, &src);
-    }
-    // xpen.Init(op, &src);
-#endif
 }
 
 // 载入背景图
@@ -151,26 +80,6 @@ bool XEditView::InitBack(const char* url) {
     }
     return true;
 
-#if 0    
-    if (op->isActive()) {
-        op->end();
-    }
-
-    // out = src.copy();
-    // 原图加载后，初始化基础层和输出层
-    baseLayer = src.copy();
-    out = baseLayer.copy();
-
-    // 图片载入成功后，动态调整XImage控件的大小为图片的实际宽高
-    if (device) {
-        // device->resize(src.size());
-        device->setFixedSize(
-            src.size());  // 强制 XImage 控件的固定大小与图片的实际像素大小一致
-                          // (1:1)
-    }
-
-    op->begin(&out);
-#endif
     return true;
 }
 
@@ -178,21 +87,7 @@ bool XEditView::InitBack(const char* url) {
 void XEditView::Paint() {
     // 在device窗口绘制
     QPainter p(device);
-
     p.drawImage(0, 0, out);
-#if 0
-    //绘制图片
-    p.drawImage(0, 0, src);
-
-    //绘制线条
-    //所有坐标的数量
-    int size = poss.size();
-    //从1开始，画线要两个点
-    for(int i = 1; i < size; ++i)
-    {
-        p.drawLine(QLine(poss[i-1].x, poss[i-1].y, poss[i].x, poss[i].y));
-    }
-#endif
 }
 
 // 保存图片
@@ -202,8 +97,6 @@ bool XEditView::Save(const char* url) {
         qDebug() << "XEditView: out 图像为空，没有数据可以保存！";
         return false;
     }
-    // Qt的QImage自带根据后缀名（png/jpg/bmp)自动编码保存的功能
-    //    return out.save(QString::fromLocal8Bit(url));
 
     // 对应前面的 toUtf8()，这里使用 fromUtf8() 解码
     QString savePath = QString::fromUtf8(url);
@@ -216,7 +109,6 @@ bool XEditView::Save(const char* url) {
                     "底层调用失败，请检查路径权限或格式。路径："
                  << savePath;
     }
-
     return success;
 }
 
@@ -224,21 +116,6 @@ bool XEditView::Save(const char* url) {
 void XEditView::Clear() {
     baseLayer = src.copy();
     resetOutLayer(baseLayer);
-
-#if 0    
-    if (op && op->isActive()) {
-        op->end();
-    }
-
-    baseLayer = src.copy();
-    out = baseLayer.copy();
-    op->begin(&out);
-
-    // 重新绑定所有工具的画家指针
-    for (auto& pair : views) {
-        pair.second->Init(op, &src);
-    }
-#endif
 }
 
 // 将鼠标松开时的最终画面固化到基础层

@@ -23,7 +23,7 @@ class XModel : public XSubject {
 
     // void SetPara(std::string key, int val);
     void SetPara(const std::string& key, int val);
-    int GetPara(std::string key);
+    int GetPara(const std::string& key);
 
     XModel();
     ~XModel();

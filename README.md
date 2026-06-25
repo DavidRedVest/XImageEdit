@@ -1,5 +1,7 @@
 # XImageEdit
 
+[English](README_EN.md) | **中文**
+
 基于Qt6 + C++17实现跨平台图片编辑器，采用MVC架构设计，支持macOS/Windows
 
 ![](image/app_release_v1.png) 

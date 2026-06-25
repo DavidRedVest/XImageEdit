@@ -75,25 +75,9 @@ void IController::NotfyAll() {
         tasks[i]->Notify();  // 画在临时层上
         v->Commit();         // 立即固化在底层图上
     }
-
-#if 0
-    int size = tasks.size();
-    for(int i = 0; i < size; ++i)
-    {
-        tasks[i]->Notify();
-    }
-#endif
 }
 // 撤消
 void IController::Undo() {
-#if 0    
-    int last = tasks.size() - 1;  // 下表从0开始
-    if (last < 2) {
-        return;
-    }
-    retasks.push_back(tasks[last]);
-#endif
-
     if (tasks.size() <= 1) {  // 保留背景图
         return;
     }
@@ -112,7 +96,7 @@ void IController::Redo() {
     NotfyAll();
 }
 
-void IController::SetPara(std::string key, int val) {
+void IController::SetPara(const std::string& key, int val) {
     if (!m) {
         return;
     }

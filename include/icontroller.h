@@ -6,16 +6,9 @@
 
 #include "icontrollerfactory.h"
 
-enum XSTATUS
-{
-    XPEN,
-    XERASER,
-    XRECT,
-    XIMAGE
-};
+enum XSTATUS { XPEN, XERASER, XRECT, XIMAGE };
 
-class IController
-{
+class IController {
    public:
     static IController* Create(IControllerFactory* f);
 
@@ -26,14 +19,13 @@ class IController
     // 给当前模型添加数据
     virtual void Add(int x, int y);
     virtual void Paint();
-    virtual void SetStatus(XSTATUS s)
-    {
+    virtual void SetStatus(XSTATUS s) {
         status = s;
     }
     virtual void NotfyAll();
     virtual void Undo();
     virtual void Redo();
-    virtual void SetPara(std::string key, int val);
+    virtual void SetPara(const std::string& key, int val);
     // 保存
     virtual bool Save(const char* ual);
     // 通知视图，当前工具已经绘制完毕

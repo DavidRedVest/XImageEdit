@@ -18,5 +18,7 @@
         <file>redo.svg</file>
         <file>undo.svg</file>
         <file>save.svg</file>
+        <file>logo1.svg</file>
+        <file>logo1.png</file>
     </qresource>
 </RCC>

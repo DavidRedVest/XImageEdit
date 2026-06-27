@@ -96,7 +96,7 @@ open build/MyImageEdit.app
 
 1. Add `XCIRCLE` to the `XSTATUS` enum in `constants.h`
 2. Create `include/xcirclegraph.h` and `src/xcirclegraph.cpp`, inheriting `IGraph` and implementing `Draw()`
-3. Register in the `XEditView` constructor: `views[XCIRCLE] = new XCircleGraph()`
+3. Register in the `XEditView` constructor: `RegView<XCircleGraph>(XCIRCLE)`
 4. Add a `SetCircle()` slot in `XImage` and connect it to the corresponding button
 
 No other code changes are required.

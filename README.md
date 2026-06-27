@@ -93,7 +93,7 @@ open build/MyImageEdit.app
 
 1. 在 `constants.h` 的 `XSTATUS` 枚举中添加 `XCIRCLE`
 2. 新建 `include/xcirclegraph.h` 和 `src/xcirclegraph.cpp`，继承 `IGraph` 实现 `Draw()`
-3. 在 `XEditView` 构造函数中增加：`views[XCIRCLE]=new XCircleGraph()` 
+3. 在 `XEditView` 构造函数中增加：`RegView<XCircleGraph>(XCIRCLE)` 
 4. 在 `XImage` 中添加 `SetCircle()` slot，连接对应按钮
 
 其余代码无需改动。

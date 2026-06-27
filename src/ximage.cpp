@@ -16,7 +16,9 @@
 XImage::XImage(QWidget* p) : QWidget(p) {
     // c = IController::Create(new XControllerFactory());
     c.reset(IController::Create(&XControllerFactory::getInstance()));
-    c->Init(this);
+    if (c) {
+        c->Init(this);
+    }
 }
 
 XImage::~XImage() {
@@ -32,7 +34,8 @@ void XImage::Open() {
         return;
     }
     // 加载图片
-    if (!c->InitBack(filename.toLocal8Bit())) {
+    QByteArray path = filename.toLocal8Bit();
+    if (!c || !c->InitBack(path.constData())) {
         qDebug() << "src.load image failed!";
         return;
     }
@@ -46,22 +49,32 @@ void XImage::Open() {
 }
 
 void XImage::SetPen() {
-    c->SetStatus(XPEN);
+    if (c) {
+        c->SetStatus(XPEN);
+    }
 }
 void XImage::SetErase() {
-    c->SetStatus(XERASER);
+    if (c) {
+        c->SetStatus(XERASER);
+    }
 }
 void XImage::SetRect() {
-    c->SetStatus(XRECT);
+    if (c) {
+        c->SetStatus(XRECT);
+    }
 }
 
 void XImage::Undo() {
-    c->Undo();
+    if (c) {
+        c->Undo();
+    }
     // 刷新显示
     update();
 }
 void XImage::Redo() {
-    c->Redo();
+    if (c) {
+        c->Redo();
+    }
     // 刷新显示
     update();
 }
@@ -90,7 +103,7 @@ void XImage::SavePicture(void) {
 #endif
 
     // 调用控制器，将平台相关的 QString 转换为统一的 const char*
-    if (c->Save(ba.data())) {
+    if (c && c->Save(ba.constData())) {
         qDebug() << "Image saved successfully to:" << filename;
     } else {
         qDebug() << "Failed to save image!";
@@ -98,6 +111,9 @@ void XImage::SavePicture(void) {
 }
 // 鼠标重载函数
 void XImage::mousePressEvent(QMouseEvent* e) {
+    if (!c) {
+        return;
+    }
     c->AddModel();
     c->SetPara("size", penSize);
     c->SetPara("r", r);
@@ -108,11 +124,18 @@ void XImage::mousePressEvent(QMouseEvent* e) {
 }
 // 默认鼠标移动事件，按下才触发
 void XImage::mouseMoveEvent(QMouseEvent* e) {
+    if (!c) {
+        return;
+    }
     c->Add(e->position().x(), e->position().y());
     update();
 }
 
 void XImage::mouseReleaseEvent(QMouseEvent* e) {
+    Q_UNUSED(e);
+    if (!c) {
+        return;
+    }
     // 告诉控制器：这一笔画完了，固化图层
     c->FinishModel();
     // 触发最后一次UI刷新
@@ -120,5 +143,8 @@ void XImage::mouseReleaseEvent(QMouseEvent* e) {
 }
 
 void XImage::paintEvent(QPaintEvent* e) {
-    c->Paint();
+    Q_UNUSED(e);
+    if (c) {
+        c->Paint();
+    }
 }

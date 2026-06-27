@@ -3,6 +3,7 @@
 
 #include <QImage>
 #include <QWidget>
+#include <memory>
 
 #include "constants.h"
 class IController;
@@ -15,12 +16,12 @@ class XImage : public QWidget {
     ~XImage();
 
     // 重载绘制方法 update后会调用
-    void paintEvent(QPaintEvent* e);
+    void paintEvent(QPaintEvent* e) override;
 
     // 重载鼠标函数
-    void mousePressEvent(QMouseEvent* e);
-    void mouseMoveEvent(QMouseEvent* e);
-    void mouseReleaseEvent(QMouseEvent* e);
+    void mousePressEvent(QMouseEvent* e) override;
+    void mouseMoveEvent(QMouseEvent* e) override;
+    void mouseReleaseEvent(QMouseEvent* e) override;
 
    public slots:
     void Open();

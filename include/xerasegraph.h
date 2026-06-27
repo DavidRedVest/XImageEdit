@@ -3,10 +3,9 @@
 
 #include "igraph.h"
 
-class XEraseGraph : public IGraph
-{
+class XEraseGraph : public IGraph {
    public:
-    void Draw(XModel* m);
+    void Draw(XModel* m) override;
 };
 
 #endif  // XERASEGRAPH_H

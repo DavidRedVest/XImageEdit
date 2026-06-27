@@ -12,6 +12,8 @@ class IController {
    public:
     static IController* Create(IControllerFactory* f);
 
+    virtual ~IController() = default;
+
     virtual void Init(void* device);
     virtual bool InitBack(const char* url);
     // 添加模型对象,-1表示当前状态
@@ -32,6 +34,9 @@ class IController {
     virtual void FinishModel();
 
     IController();
+
+   private:
+    void ClearHistory();
 
    protected:
     IView* v = 0;

@@ -3,9 +3,10 @@
 
 #include "iobserver.h"
 
-class IView : public IObserver
-{
+class IView : public IObserver {
    public:
+    ~IView() override = default;
+
     // 显示目标
     virtual void InitDevice(void* d) = 0;
 

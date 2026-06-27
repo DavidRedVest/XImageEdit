@@ -5,10 +5,11 @@
 
 class IObserver;
 
-class XSubject
-{
+class XSubject {
    public:
     int type = 0;
+    virtual ~XSubject() = default;
+
     // 通知观察者
     virtual void Notify();
 

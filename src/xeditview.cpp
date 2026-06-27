@@ -16,16 +16,18 @@ XEditView::XEditView() {
     // 初始化图像，未打开图像，直接画像
     out = QImage(AppConfig::DEFAULT_CANVAS_WIDTH,
                  AppConfig::DEFAULT_CANVAS_HEIGHT, QImage::Format_RGB888);
-    out.fill(Qt::white);  // 初始化为白色背景，默认是黑色
+    // out.fill(Qt::white);  // 初始化为白色背景，默认是黑色
     src = QImage(AppConfig::DEFAULT_CANVAS_WIDTH,
                  AppConfig::DEFAULT_CANVAS_HEIGHT, QImage::Format_RGB888);
     // src.fill(Qt::white);
+    src = out.copy();
+    baseLayer = out.copy();
 
     // 只创建一次
-    views[XPEN] = new XPenGraph();
-    views[XERASER] = new XEraseGraph();
-    views[XRECT] = new XRectGraph();
-    views[XIMAGE] = new XImageGraph();
+    RegView<XPenGraph>(XPEN);
+    RegView<XEraseGraph>(XERASER);
+    RegView<XRectGraph>(XRECT);
+    RegView<XImageGraph>(XIMAGE);
 }
 XEditView::~XEditView() {
     if (op) {
@@ -34,9 +36,6 @@ XEditView::~XEditView() {
         }
         delete op;
         op = nullptr;
-    }
-    for (auto& [type, graph] : views) {
-        delete graph;
     }
 }
 
@@ -78,8 +77,6 @@ bool XEditView::InitBack(const char* url) {
     if (device) {
         device->setFixedSize(src.size());
     }
-    return true;
-
     return true;
 }
 

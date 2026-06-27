@@ -2,9 +2,10 @@
 #define IOBSERVER_H
 
 class XSubject;
-class IObserver
-{
+class IObserver {
    public:
+    virtual ~IObserver() = default;
+
     virtual void Update(XSubject* sub) = 0;
 };
 

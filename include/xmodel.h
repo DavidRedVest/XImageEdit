@@ -6,9 +6,7 @@
 
 #include "xsubject.h"
 struct XPos {
-    XPos(int x, int y) {
-        this->x = x;
-        this->y = y;
+    XPos(int x, int y) : x(x), y(y) {
     }
     int x = 0;
     int y = 0;
@@ -23,10 +21,10 @@ class XModel : public XSubject {
 
     // void SetPara(std::string key, int val);
     void SetPara(const std::string& key, int val);
-    int GetPara(const std::string& key);
+    int GetPara(const std::string& key, int defaultValue = 0) const;
 
     XModel();
-    ~XModel();
+    ~XModel() override;
 
    private:
     std::map<std::string, int> paras;

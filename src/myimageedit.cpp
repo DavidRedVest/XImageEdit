@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 
 #include "./ui_myimageedit.h"
+#include "constants.h"
 #include "ximage.h"
 
 MyImageEdit::MyImageEdit(QWidget* parent)
@@ -32,9 +33,11 @@ MyImageEdit::~MyImageEdit() {
 void MyImageEdit::initDate(void) {
 }
 static void setupIconButton(QPushButton* btn, const QString& iconPath,
+                            const QString& tooltip,
                             const QSize& size = {70, 50}) {
     btn->setIcon(QIcon(iconPath));
     btn->setIconSize(size);
+    btn->setToolTip(tooltip);
     btn->setText("");
     btn->setFlat(true);
     btn->setStyleSheet("border: none;");
@@ -51,9 +54,11 @@ void MyImageEdit::initUI(void) {
     undoButton = new QPushButton(this);
     redoButton = new QPushButton(this);
     penSizeSlider = new QSlider(this);
-    penSizeSlider->setMinimum(5);
-    penSizeSlider->setMaximum(50);
-    penSizeSlider->setValue(5);  // 设置初始值
+    penSizeSlider->setOrientation(Qt::Horizontal);
+    penSizeSlider->setMinimum(AppConfig::MIN_PEN_SIZE);
+    penSizeSlider->setMaximum(AppConfig::MAX_PEN_SIZE);
+    penSizeSlider->setValue(AppConfig::DEFAULT_PEN_SIZE);
+    penSizeSlider->setToolTip(QStringLiteral("画笔大小"));
     colorButton = new QPushButton(this);
     saveButton = new QPushButton(this);
     scrollArea = new QScrollArea(this);
@@ -92,26 +97,31 @@ void MyImageEdit::initUI(void) {
     // 应用布局到主窗口
     this->setLayout(mainLayout);
 
-    setupIconButton(openB, ":/Resources/open.svg");
-    setupIconButton(penButton, ":/Resources/pen.svg");
-    setupIconButton(eraseButton, ":/Resources/eraser.svg");
-    setupIconButton(rectButton, ":/Resources/rect.svg");
-    setupIconButton(undoButton, ":/Resources/undo.svg", {50, 40});
-    setupIconButton(redoButton, ":/Resources/redo.svg", {50, 40});
-    setupIconButton(colorButton, ":/Resources/color.svg");
-    setupIconButton(saveButton, ":/Resources/save.svg");
+    setupIconButton(openB, ":/Resources/open.svg", QStringLiteral("打开图片"));
+    setupIconButton(penButton, ":/Resources/pen.svg", QStringLiteral("画笔"));
+    setupIconButton(eraseButton, ":/Resources/eraser.svg",
+                    QStringLiteral("橡皮擦"));
+    setupIconButton(rectButton, ":/Resources/rect.svg", QStringLiteral("矩形"));
+    setupIconButton(undoButton, ":/Resources/undo.svg", QStringLiteral("撤销"),
+                    {50, 40});
+    setupIconButton(redoButton, ":/Resources/redo.svg", QStringLiteral("重做"),
+                    {50, 40});
+    setupIconButton(colorButton, ":/Resources/color.svg",
+                    QStringLiteral("颜色"));
+    setupIconButton(saveButton, ":/Resources/save.svg",
+                    QStringLiteral("保存图片"));
 }
 void MyImageEdit::initConnect(void) {
-    connect(openB, SIGNAL(clicked()), myImage, SLOT(Open()));
-    connect(penButton, SIGNAL(clicked()), myImage, SLOT(SetPen()));
-    connect(eraseButton, SIGNAL(clicked()), myImage, SLOT(SetErase()));
-    connect(rectButton, SIGNAL(clicked()), myImage, SLOT(SetRect()));
-    connect(undoButton, SIGNAL(clicked()), myImage, SLOT(Undo()));
-    connect(redoButton, SIGNAL(clicked()), myImage, SLOT(Redo()));
-    connect(penSizeSlider, SIGNAL(valueChanged(int)), myImage,
-            SLOT(SetPenSize(int)));
-    connect(colorButton, SIGNAL(clicked()), this, SLOT(SetColor()));
-    connect(saveButton, SIGNAL(clicked()), myImage, SLOT(SavePicture()));
+    connect(openB, &QPushButton::clicked, myImage, &XImage::Open);
+    connect(penButton, &QPushButton::clicked, myImage, &XImage::SetPen);
+    connect(eraseButton, &QPushButton::clicked, myImage, &XImage::SetErase);
+    connect(rectButton, &QPushButton::clicked, myImage, &XImage::SetRect);
+    connect(undoButton, &QPushButton::clicked, myImage, &XImage::Undo);
+    connect(redoButton, &QPushButton::clicked, myImage, &XImage::Redo);
+    connect(penSizeSlider, &QSlider::valueChanged, myImage,
+            &XImage::SetPenSize);
+    connect(colorButton, &QPushButton::clicked, this, &MyImageEdit::SetColor);
+    connect(saveButton, &QPushButton::clicked, myImage, &XImage::SavePicture);
 }
 
 void MyImageEdit::SetColor() {

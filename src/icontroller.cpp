@@ -11,6 +11,9 @@ IController* IController::Create(IControllerFactory* f) {
         return 0;
     }
     IController* c = f->CreateC();
+    if (!c) {
+        return 0;
+    }
     // c->m = f->CreateM();
     c->v = f->CreateV();
     c->f = f;
@@ -19,30 +22,42 @@ IController* IController::Create(IControllerFactory* f) {
 }
 
 void IController::Init(void* device) {
-    // 添加背景图
-    AddModel(XIMAGE);
-    v->InitDevice(device);
+    if (v) {
+        v->InitDevice(device);
+    }
 }
 
 bool IController::InitBack(const char* url) {
+    if (!v) {
+        return false;
+    }
     bool re = v->InitBack(url);
-    // 添加背景图
-    AddModel(XIMAGE);
+    if (re) {
+        ClearHistory();
+    }
     return re;
 }
 
 void IController::AddModel(int s) {
-    if (s < 0)
+    if (!f || !v) {
+        return;
+    }
+    if (s < 0) {
         s = status;
+    }
     // 创建模型
     // m = f->CreateM();
     // 使用shared_ptr结果工厂返回的裸指针
     m = std::shared_ptr<XModel>(f->CreateM());
+    if (!m) {
+        return;
+    }
 
     // 添加观察者
     m->Attach(v);
     m->type = s;
     tasks.push_back(m);
+    retasks.clear();
 }
 
 void IController::Add(int x, int y) {
@@ -57,9 +72,12 @@ void IController::FinishModel() {
     if (v) {
         v->Commit();
     }
+    m.reset();
 }
 void IController::Paint() {
-    v->Paint();
+    if (v) {
+        v->Paint();
+    }
 }
 void IController::NotfyAll() {
     if (!v) {
@@ -70,15 +88,14 @@ void IController::NotfyAll() {
     v->Clear();
 
     // 按照历史记录，把剩下的任务重新“重播”一遍
-    int size = tasks.size();
-    for (int i = 0; i < size; ++i) {
-        tasks[i]->Notify();  // 画在临时层上
-        v->Commit();         // 立即固化在底层图上
+    for (const auto& task : tasks) {
+        task->Notify();  // 画在临时层上
+        v->Commit();     // 立即固化在底层图上
     }
 }
 // 撤消
 void IController::Undo() {
-    if (tasks.size() <= 1) {  // 保留背景图
+    if (tasks.empty()) {
         return;
     }
     retasks.push_back(tasks.back());
@@ -90,8 +107,7 @@ void IController::Redo() {
     if (retasks.empty()) {
         return;
     }
-    int rlast = retasks.size() - 1;
-    tasks.push_back(retasks[rlast]);
+    tasks.push_back(retasks.back());
     retasks.pop_back();
     NotfyAll();
 }
@@ -109,4 +125,10 @@ bool IController::Save(const char* url) {
         return false;
     }
     return v->Save(url);
+}
+
+void IController::ClearHistory() {
+    tasks.clear();
+    retasks.clear();
+    m.reset();
 }

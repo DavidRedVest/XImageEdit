@@ -3,10 +3,9 @@
 
 #include "igraph.h"
 
-class XImageGraph : public IGraph
-{
+class XImageGraph : public IGraph {
    public:
-    virtual void Draw(XModel* m);
+    void Draw(XModel* m) override;
 };
 
 #endif  // XIMAGEGRAPH_H

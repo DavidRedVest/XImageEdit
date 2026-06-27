@@ -5,11 +5,11 @@ class QPainter;
 class QImage;
 class XModel;
 
-class IGraph
-{
+class IGraph {
    public:
-    virtual void Init(QPainter* p, QImage* s)
-    {
+    virtual ~IGraph() = default;
+
+    virtual void Init(QPainter* p, QImage* s) {
         painter = p;
         src = s;
     }

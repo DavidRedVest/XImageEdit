@@ -16,10 +16,10 @@ void XModel::Add(XPos pos) {
 void XModel::SetPara(const std::string& key, int val) {
     paras[key] = val;
 }
-int XModel::GetPara(const std::string& key) {
-    // 没有
-    if (paras.find(key) == paras.end()) {
-        return 0;
+int XModel::GetPara(const std::string& key, int defaultValue) const {
+    const auto it = paras.find(key);
+    if (it == paras.end()) {
+        return defaultValue;
     }
-    return paras[key];
+    return it->second;
 }

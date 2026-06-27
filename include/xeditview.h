@@ -3,11 +3,10 @@
 
 #include <QImage>
 #include <map>
+#include <memory>
 #include <vector>
 
 #include "iview.h"
-
-// using namespace  std;
 
 class QWidget;
 class IGraph;
@@ -38,9 +37,10 @@ class XEditView : public IView {
 
     template <class ViewClass>
     IGraph* RegView(int type) {
-        ViewClass* view = new ViewClass();
-        views.insert(std::make_pair(type, view));
-        return view;
+        auto view = std::make_unique<ViewClass>();
+        IGraph* rawView = view.get();
+        views[type] = std::move(view);
+        return rawView;
     }
 
     ~XEditView();
@@ -57,7 +57,7 @@ class XEditView : public IView {
     XEditView();
 
     // 图元编号 外部维护
-    std::map<int, IGraph*> views;
+    std::map<int, std::unique_ptr<IGraph>> views;
 
     QWidget* device = nullptr;
     // 原图

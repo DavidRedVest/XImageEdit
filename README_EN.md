@@ -4,7 +4,7 @@
 
 A cross-platform image editor built with **Qt6 + C++17**, featuring MVC architecture and multiple design patterns. Supports macOS and Windows.
 
-![](image/app_release_v1.png) 
+![](image/app_release_v2.png) 
 
 ------
 
